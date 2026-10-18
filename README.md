@@ -218,6 +218,15 @@ The green marker estimates ship progress by linear interpolation between consecu
 - Avoid real-time locations, sensitive booking details, personal identifiers, or other information unsuitable for the public internet.
 - JavaScript parsing and GitHub persistence verified; iPhone functional testing pending.
 
+## v1.2.0 — Interactive Travel Memories
+
+- Public journal browser now groups **approved** postcards by itinerary day/port, with a destination filter, chronological memory controls, and a photo gallery sourced only from approved local `photos/` paths.
+- Timeline entries can select their corresponding day on the map without moving the independent ship-position marker.
+- `postcard-studio.html` now assigns a local draft to an exact itinerary day/date. Drafts remain in the originating device's browser local storage; copying a draft does not publish it.
+- Published entries with a valid `dayIndex` are linked to that itinerary index; date remains the fallback for older entries.
+- No new public postcards, photos, or private family details were added. The `journal-data.js` publication list remains empty.
+- Code-level JavaScript syntax verified. Safari behavior and visual layout remain to be checked on device.
+
 ## Future milestones
 
 - v0.1.0: family cruise itinerary, interactive map, planned trip progress, port overviews
