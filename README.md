@@ -10,6 +10,8 @@ Star Princess Caribbean cruise — October 24–November 7, 2026.
 
 - `index.html` — responsive website, itinerary controls, and Leaflet/OpenStreetMap map.
 - `trip-data.js` — trip-specific itinerary and destination facts, easy to replace for another trip.
+- `journal-data.js` — explicitly approved public journal entries; starts as an empty array.
+- `photos/` — optional approved photo files referenced by journal entries.
 
 ## Privacy and accuracy
 
@@ -27,7 +29,7 @@ Upload both `index.html` and `trip-data.js` to the root of the public GitHub rep
 - Expandable port inspiration guides.
 - Accessible mobile selection controls and clearer separation between selected-day location and real-world tracking.
 
-**Release process:** This update is on a review branch. Review before merging into `main`, which powers the family-facing GitHub Pages site.
+**Release process:** Approved changes currently go directly to `main`, which powers the family-facing GitHub Pages site.
 
 ## v0.3.0 — Destination Discovery
 
@@ -37,11 +39,24 @@ Upload both `index.html` and `trip-data.js` to the root of the public GitHub rep
 - Visible version number in the header.
 - Photos load from Wikimedia Commons; if a photo is unavailable, its card retains an illustrated fallback.
 
+## v0.4.0 — Family Travel Journal
+
+The site now shows a journal section with a latest-update panel, chronological entries, and optional photo galleries. **There are currently zero personal entries.** An entry is added only with the traveler's explicit approval for public publication.
+
+Workflow:
+1. Draft the message and select photos privately.
+2. Confirm which text and photos are approved for the public website, remove sensitive location/booking information and consider photo metadata.
+3. Upload approved photo files to `photos/` (use simple `.jpg`, `.png` or `.webp` filenames).
+4. Add an object to `window.JOURNEY_JOURNAL` in `journal-data.js`, e.g. `{date:"2026-10-27",title:"An island afternoon",message:"A short note.",photos:[{src:"photos/island.jpg",alt:"Beach view",caption:"An island view"}]}`.
+5. Commit to `main`; GitHub Pages redeploys.
+
+**Privacy:** GitHub Pages is public. No personal message, photograph or precise land location is published automatically. Photos require explicit approval, and uploaded images should have sensitive EXIF metadata removed.
+
 ## Future milestones
 
 - v0.1.0: family cruise itinerary, interactive map, planned trip progress, port overviews
 - v0.2.0: improved progress, interactive itinerary, expandable port guides
 - v0.3.0: destination discovery, photography, and countdown
 - Next: JSON trip schema and multi-trip support
-- v0.3.0: destination gallery, improved mobile sharing and accessibility
+- v0.4.0: opt-in family journal, latest update, and galleries
 - Future: sourced, timestamped actual vessel locations where reliably available
