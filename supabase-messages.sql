@@ -20,22 +20,23 @@ revoke all on public.family_messages from anon, authenticated;
 grant select on public.family_members to authenticated;
 grant select, insert on public.family_messages to authenticated;
 -- All family members see only the permitted membership list and shared board.
-create policy "members read members" on public.family_members for select to authenticated
-using (exists (select 1 from public.family_members as mine where mine.user_id=(select auth.uid())));
--- If self-referential RLS errors occur, use a SECURITY DEFINER membership check function:
-drop policy if exists "members read members" on public.family_members;
-create or replace function public.is_family_member() returns boolean language sql stable
-security definer set search_path = '' as $$
+-- Keep privileged membership lookup outside the exposed public API schema.
+-- RLS policies call it internally. Don't expose private schema via PostgREST.
+create schema if not exists private;
+create or replace function private.is_family_member() returns boolean
+ language sql stable security definer set search_path = '' as $$
  select exists (select 1 from public.family_members m where m.user_id = (select auth.uid()));
 $$;
-revoke all on function public.is_family_member() from public, anon;
-grant execute on function public.is_family_member() to authenticated;
+revoke all on function private.is_family_member() from public, anon;
+grant usage on schema private to authenticated;
+grant execute on function private.is_family_member() to authenticated;
+drop policy if exists "members read members" on public.family_members;
 create policy "approved members read roster" on public.family_members for select to authenticated
-using ((select public.is_family_member()));
+using ((select private.is_family_member()));
 create policy "approved members read messages" on public.family_messages for select to authenticated
-using ((select public.is_family_member()));
+using ((select private.is_family_member()));
 create policy "approved members send as self" on public.family_messages for insert to authenticated
-with check ((select public.is_family_member()) and user_id=(select auth.uid()));
+with check ((select private.is_family_member()) and user_id=(select auth.uid()));
 -- No policies for UPDATE, DELETE, or membership INSERT by authenticated users.
 -- INVITE FLOW (MANUAL): disable public sign-ups in Auth settings; invite a member
 -- through Supabase Auth dashboard, then manually approve by looking up their UUID:
