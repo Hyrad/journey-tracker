@@ -189,6 +189,15 @@ The green marker estimates ship progress by linear interpolation between consecu
 - No reservations, activity bookings, private family journal entries or private LifeOS records were exposed.
 - Static JavaScript syntax verified and committed to GitHub; visual Safari testing still recommended.
 
+## v0.9.2 — Mobile collapsible sections
+
+- Collapsible native HTML disclosure panels reduce long vertical blocks on phones: external vessel tracking, map accuracy notes, postcard archive, full day-by-day itinerary, and destination guides.
+- Today's Adventure, progress metrics, ship map, latest postcard and essential safety context remain visible.
+- The full itinerary is collapsed by default on mobile, expanded by default on desktop; subsequent user toggles take priority.
+- Quick navigation automatically opens the requested itinerary or destination panel before scrolling there.
+- Improved keyboard/touch affordances with native summary buttons. Existing journal publication consent remains unchanged.
+- GitHub code and JavaScript syntax checked; real iPhone Safari visual verification pending.
+
 ## Future milestones
 
 - v0.1.0: family cruise itinerary, interactive map, planned trip progress, port overviews
