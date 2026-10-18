@@ -239,6 +239,13 @@ The green marker estimates ship progress by linear interpolation between consecu
 - Privacy: content is private to approved logged-in family accounts but not end-to-end encrypted; Supabase project administrators can access messages. No automatic chat notifications, offline queue, or photo attachments in this version. Don't send booking numbers, sensitive documents, or real-time location details.
 - The dedicated Supabase Canada Central project was created at the quoted $0/month project cost; database RLS is deployed and Supabase security advisors returned no current findings. Anonymous table read permission is denied. Invited-account authorization and iPhone functional tests are still pending.
 
+## v1.3.1 — French-default interface and language switch
+
+- The app loads in **French** by default with a fixed **EN** button to switch to English; switch back with **FR**. The browser saves the preference locally across the main site, Messages, and Postcard Studio.
+- Interface labels, major dashboard headings, common dynamic progress messages and navigation have a French translation layer. Family-authored content is not automatically translated.
+- iPhone PWA cache version incremented to fetch the updated translation script and related pages. Refresh the installed app online after deployment.
+- This first translation pass does not claim exhaustive localization of every lengthy destination guide or uncommon status message. The original English remains accessible. Mobile Safari visual review is pending.
+
 ## Future milestones
 
 - v0.1.0: family cruise itinerary, interactive map, planned trip progress, port overviews
