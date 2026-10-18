@@ -11,6 +11,7 @@ Star Princess Caribbean cruise — October 24–November 7, 2026.
 - `index.html` — responsive website, itinerary controls, and Leaflet/OpenStreetMap map.
 - `trip-data.js` — trip-specific itinerary and destination facts, easy to replace for another trip.
 - `journal-data.js` — explicitly approved public journal entries; starts as an empty array.
+- `position-data.js` — nullable, verified AIS vessel-position snapshot; currently empty.
 - `photos/` — optional approved photo files referenced by journal entries.
 
 ## Privacy and accuracy
@@ -52,6 +53,16 @@ Workflow:
 
 **Privacy:** GitHub Pages is public. No personal message, photograph or precise land location is published automatically. Photos require explicit approval, and uploaded images should have sensitive EXIF metadata removed.
 
+## v0.5.0 — Ship Tracking Foundation
+
+- Correct vessel identity: Star Princess cruise ship, IMO `9863120`, MMSI `310869000` (not similarly named cargo ships).
+- Public ship-specific VesselFinder link as a convenient external check.
+- New separate AIS-status panel. **No verified AIS position currently ingested**, so the interface clearly says so.
+- Optional `window.JOURNEY_AIS_POSITION` data contract with IMO/MMSI, lat/lon, original UTC report time and named provider; reject mismatched or invalid input.
+- Positions over six hours old are marked stale; scheduled route remains visibly separate.
+- GitHub Pages does not fetch AIS itself. Any automated ingestion would need a licensed/authorized provider, suitable rate and coverage, properly stored credentials, and a permitted redistribution model.
+- No paid provider subscription or API keys have been configured. Do not present this release as a live-AIS service.
+
 ## Future milestones
 
 - v0.1.0: family cruise itinerary, interactive map, planned trip progress, port overviews
@@ -59,4 +70,5 @@ Workflow:
 - v0.3.0: destination discovery, photography, and countdown
 - Next: JSON trip schema and multi-trip support
 - v0.4.0: opt-in family journal, latest update, and galleries
-- Future: sourced, timestamped actual vessel locations where reliably available
+- v0.5.0: tracking foundation and correct-vessel external source
+- Future: authorized AIS ingestion if pricing, coverage and redistribution rights permit
