@@ -142,6 +142,15 @@ The green marker estimates ship progress by linear interpolation between consecu
 - These are deliberately schematic offshore corridors, not actual AIS tracks, chart-verified maritime channels, or reliable schedules. Precise coast avoidance and true arrival/departure timing require further geographic/itinerary verification.
 - JavaScript syntax checked; still requires visual inspection of the entire route at multiple zoom levels before describing it as reliably land-avoiding.
 
+## v0.6.4 — Along-itinerary destination distances
+
+- Selecting any itinerary date or port displays the approximate **remaining distance along the full chronological offshore route**, not a direct great-circle distance.
+- Uses the same manually shaped offshore segments that draw the route and locate the extrapolated ship.
+- Includes the current segment remainder plus all intermediate itinerary legs before the selected future stop. Multiple calls at the same location (e.g. Fort Lauderdale) are distinguished by date/index.
+- Before departure the panel clearly measures from the **planned embarkation waypoint**, not a verified ship location.
+- Passed stops report zero **remaining** route distance, not zero distance sailed.
+- Distances are estimates derived from handcrafted waypoints, not nautical charts or verified shipping lanes.
+
 ## Future milestones
 
 - v0.1.0: family cruise itinerary, interactive map, planned trip progress, port overviews
