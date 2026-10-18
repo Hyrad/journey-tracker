@@ -133,6 +133,15 @@ The green marker estimates ship progress by linear interpolation between consecu
 - Before embarkation, only the planned dotted route appears. After disembarkation, the scheduled voyage is shown as solid.
 - Distances and route shapes remain illustrative, not nautical navigation or GPS. Interactive browser visual confirmation is still recommended.
 
+## v0.6.2 — Offshore route shaping and camera defaults
+
+- **Keep centered on ship** is enabled by default. Dragging the map turns centering off; the button restores it.
+- **Travel view** starts at zoom level 10, closer to the ship than before.
+- Illustrative voyage legs now use curated offshore control points around Florida, the Florida Straits, the Yucatán/Belize coast, Cuba and the Bahamas instead of simple straight lines between daily destinations.
+- The calculated ship marker follows the same segmented offshore corridor, so the solid past route and dotted future route meet at its estimated position.
+- These are deliberately schematic offshore corridors, not actual AIS tracks, chart-verified maritime channels, or reliable schedules. Precise coast avoidance and true arrival/departure timing require further geographic/itinerary verification.
+- JavaScript syntax checked; still requires visual inspection of the entire route at multiple zoom levels before describing it as reliably land-avoiding.
+
 ## Future milestones
 
 - v0.1.0: family cruise itinerary, interactive map, planned trip progress, port overviews
