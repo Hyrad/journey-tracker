@@ -6,13 +6,72 @@
 .ais-panel{margin-top:17px;padding:17px;background:#f3faf8;border:1px solid #d7e9e4;border-radius:15px}.ais-heading{display:flex;align-items:center;gap:9px;justify-content:space-between;flex-wrap:wrap}.ais-status{font-size:13px;font-weight:700;color:#51737f}.ais-facts{font-size:13px;color:#466775;line-height:1.7}.ais-facts a{color:#036875;font-weight:700}.ais-time{font-size:12px;color:#547482}.ais-dot{width:10px;height:10px;border-radius:50%;background:#899ca4;display:inline-block;margin-right:5px}.ais-dot.fresh{background:#1b977e}.ais-dot.old{background:#dc9a36}
 .provider-map{background:#fff;border:1px solid #d5e8e3;border-radius:14px;margin-top:16px;padding:16px}.provider-map h4{font-family:'DM Sans',Arial,sans-serif;font-size:15px;margin:3px 0 8px}.provider-map p{color:#547482;font-size:13px;line-height:1.55}.provider-map .external-map-note{font-size:12px;margin-top:13px}.provider-map #myshiptrackingscript{display:none}@media(max-width:650px){.provider-map{padding:12px}}
 .map-controls{margin-top:15px}.map-controls button[aria-pressed="true"]{background:#0b6574;color:white;border-color:#0b6574}.travel-ship{font-size:35px;filter:drop-shadow(0 2px 4px #1239);transform-origin:center;animation:ship-bob 2.8s ease-in-out infinite}.travel-ship span{display:inline-block}@keyframes ship-bob{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-5px) rotate(3deg)}}@media(prefers-reduced-motion:reduce){.travel-ship{animation:none}}
-</style></head><body><header><div class="wrap"><div class="nav"><div class="brand">✦ The Caribbean Adventure</div><span class="tag">Family edition · v0.6.1</span></div><h1>Following the<br>Star Princess <span style="color:#9fe8d8">✺</span></h1><p>Two weeks of turquoise waters, island discoveries and well-earned relaxation. Follow our route and discover the places along the way.</p><div class="hero-meta"><span>🛳️ Oct 24 – Nov 7, 2026</span><span>🌴 Eastern + Western Caribbean</span><span>📍 Round-trip Fort Lauderdale</span></div></div></header>
-<main class="main wrap"><section class="mapcard"><div class="topline"><div><div class="eyebrow">Our journey</div><h2>Where are we going?</h2></div><div id="now" class="now">Loading itinerary…</div></div><div class="trip-progress" aria-live="polite"><div class="eyebrow">Journey progress</div><h2 id="progressTitle" style="margin:8px 0">Preparing for departure</h2><p id="progressDescription">Our adventure begins October 24.</p><div class="progress-rail" id="tripProgress" role="progressbar" aria-label="Cruise progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-fill" id="progressFill"></div></div><div class="progress-meta"><span id="progressDay">Upcoming voyage</span><span id="countdown" class="countdown"></span><span id="progressNext">First stop: Fort Lauderdale</span></div></div><div class="actions map-controls"><button id="travelToggle" type="button" aria-pressed="false">🛳 Travel view: Off</button><button id="centerToggle" type="button" aria-pressed="false">◎ Keep centered: Off</button><button id="routeToggle" type="button" aria-pressed="false">Route: Entire voyage</button></div><div id="map"><div class="map-fallback">Caribbean route map</div></div><div class="trip-progress" id="destinationInfo" aria-live="polite"><strong>Selected destination</strong><p id="destinationDetails" class="subnote">Choose a port to see its scheduled date and approximate distance.</p></div><p class="subnote" id="estimateSummary">Calculating scheduled-position estimate…</p><div class="legend"><span><i class="dot"></i>Port of call</span><span>〰 Curved schematic cruise route</span><span>🛳 Calculated ship position · ━ Traveled estimate · ┄ Remaining estimate · 🟠 Selected destination</span></div><section class="ais-panel" aria-labelledby="aisTitle"><div class="ais-heading"><div><div class="eyebrow">Verified vessel tracking</div><h3 id="aisTitle" style="margin:5px 0">Star Princess · IMO 9863120</h3></div><span class="ais-status" id="aisStatus"><i class="ais-dot"></i>No AIS feed connected</span></div><p id="aisSummary" class="ais-facts">An independently reported ship position is not available on this site yet. The 🛳️ symbol on the route map shows the selected scheduled day only, not a verified ship location.</p><p id="aisTimestamp" class="ais-time">Actual positions will include their original report timestamp and source.</p><a class="action" href="https://www.vesselfinder.com/vessels/details/9863120" target="_blank" rel="noopener noreferrer">Check Star Princess on VesselFinder ↗</a> <a class="action" href="https://www.myshiptracking.com/vessels/star-princess-mmsi-310869000-imo-9863120" target="_blank" rel="noopener noreferrer">Track this Star Princess on MyShipTracking ↗</a><div class="provider-map"><h4>Track the Star Princess externally</h4><p>The embedded third-party map is temporarily unavailable due to a server error. Use the ship-specific MyShipTracking link above to view the latest position the provider has reported. AIS reception can be delayed or absent offshore.</p><p class="external-map-note">The illustrated route on this page is an itinerary, not live GPS tracking.</p></div></section><div class="disclaimer"><strong>About the map:</strong> This is an itinerary-based progress view, <strong>not live ship tracking</strong>. The 🛳 ship icon remains at the calculated position, independently of the selected destination. Tap destinations to see scheduled dates and approximate straight-line distances. This is a schematic estimate, not GPS or an arrival-time prediction. Curved route segments follow illustrative daily waypoints and do not indicate an official ship navigation track. Port calls and timings can change. <a href="https://www.marinetraffic.com/" target="_blank" rel="noopener noreferrer">See external vessel-tracking service ↗</a> for separately reported positions.</div><div class="actions"><button id="followEstimate" type="button">View estimated position</button><button id="prev">← Previous day</button><button id="today">Today</button><button id="next">Next day →</button><span id="selectedDate" class="subnote"></span></div></section>
+</style></head><body><header><div class="wrap"><div class="nav"><div class="brand">✦ The Caribbean Adventure</div><span class="tag">Family edition · v0.6.2</span></div><h1>Following the<br>Star Princess <span style="color:#9fe8d8">✺</span></h1><p>Two weeks of turquoise waters, island discoveries and well-earned relaxation. Follow our route and discover the places along the way.</p><div class="hero-meta"><span>🛳️ Oct 24 – Nov 7, 2026</span><span>🌴 Eastern + Western Caribbean</span><span>📍 Round-trip Fort Lauderdale</span></div></div></header>
+<main class="main wrap"><section class="mapcard"><div class="topline"><div><div class="eyebrow">Our journey</div><h2>Where are we going?</h2></div><div id="now" class="now">Loading itinerary…</div></div><div class="trip-progress" aria-live="polite"><div class="eyebrow">Journey progress</div><h2 id="progressTitle" style="margin:8px 0">Preparing for departure</h2><p id="progressDescription">Our adventure begins October 24.</p><div class="progress-rail" id="tripProgress" role="progressbar" aria-label="Cruise progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-fill" id="progressFill"></div></div><div class="progress-meta"><span id="progressDay">Upcoming voyage</span><span id="countdown" class="countdown"></span><span id="progressNext">First stop: Fort Lauderdale</span></div></div><div class="actions map-controls"><button id="travelToggle" type="button" aria-pressed="false">🛳 Travel view: Off</button><button id="centerToggle" type="button" aria-pressed="true">◎ Keep centered: On</button><button id="routeToggle" type="button" aria-pressed="false">Route: Entire voyage</button></div><div id="map"><div class="map-fallback">Caribbean route map</div></div><div class="trip-progress" id="destinationInfo" aria-live="polite"><strong>Selected destination</strong><p id="destinationDetails" class="subnote">Choose a port to see its scheduled date and approximate distance.</p></div><p class="subnote" id="estimateSummary">Calculating scheduled-position estimate…</p><div class="legend"><span><i class="dot"></i>Port of call</span><span>〰 Curved schematic cruise route</span><span>🛳 Calculated ship position · ━ Traveled estimate · ┄ Remaining estimate · 🟠 Selected destination</span></div><section class="ais-panel" aria-labelledby="aisTitle"><div class="ais-heading"><div><div class="eyebrow">Verified vessel tracking</div><h3 id="aisTitle" style="margin:5px 0">Star Princess · IMO 9863120</h3></div><span class="ais-status" id="aisStatus"><i class="ais-dot"></i>No AIS feed connected</span></div><p id="aisSummary" class="ais-facts">An independently reported ship position is not available on this site yet. The 🛳️ symbol on the route map shows the selected scheduled day only, not a verified ship location.</p><p id="aisTimestamp" class="ais-time">Actual positions will include their original report timestamp and source.</p><a class="action" href="https://www.vesselfinder.com/vessels/details/9863120" target="_blank" rel="noopener noreferrer">Check Star Princess on VesselFinder ↗</a> <a class="action" href="https://www.myshiptracking.com/vessels/star-princess-mmsi-310869000-imo-9863120" target="_blank" rel="noopener noreferrer">Track this Star Princess on MyShipTracking ↗</a><div class="provider-map"><h4>Track the Star Princess externally</h4><p>The embedded third-party map is temporarily unavailable due to a server error. Use the ship-specific MyShipTracking link above to view the latest position the provider has reported. AIS reception can be delayed or absent offshore.</p><p class="external-map-note">The illustrated route on this page is an itinerary, not live GPS tracking.</p></div></section><div class="disclaimer"><strong>About the map:</strong> This is an itinerary-based progress view, <strong>not live ship tracking</strong>. The 🛳 ship icon remains at the calculated position, independently of the selected destination. Tap destinations to see scheduled dates and approximate straight-line distances. This is a schematic estimate, not GPS or an arrival-time prediction. Curved route segments follow illustrative daily waypoints and do not indicate an official ship navigation track. Port calls and timings can change. <a href="https://www.marinetraffic.com/" target="_blank" rel="noopener noreferrer">See external vessel-tracking service ↗</a> for separately reported positions.</div><div class="actions"><button id="followEstimate" type="button">View estimated position</button><button id="prev">← Previous day</button><button id="today">Today</button><button id="next">Next day →</button><span id="selectedDate" class="subnote"></span></div></section>
 <section class="section" id="journal"><div class="eyebrow">Postcards from the journey</div><h2>Family travel journal</h2><p class="subnote">Personal messages and photos will appear here only when we choose to share them. No account is needed to read along.</p><div id="latestJournal" class="journal-latest" aria-live="polite"><div class="eyebrow">Latest update</div><h3>Our adventure begins soon</h3><p>We're getting ready for the journey. Check back for our first postcard!</p></div><h2 style="margin-top:26px">Our postcards</h2><div id="journalEntries" class="journal-list"><div class="journal-empty">No personal updates published yet. We'll share some favorite moments when we're ready.</div></div><p class="journal-note">Posts are shared intentionally, not automatically. Publishing may be delayed while we're at sea.</p></section><section class="section"><div class="eyebrow">At a glance</div><h2>Fourteen nights, seven island stops</h2><div class="stats"><div class="stat"><strong>14</strong><span>Nights onboard</span></div><div class="stat"><strong>7</strong><span>Island port stops</span></div><div class="stat"><strong>5</strong><span>Sea days</span></div></div><h2 style="margin-top:27px">Day-by-day itinerary</h2><div class="timeline" id="timeline"></div></section>
 <section class="section"><div class="eyebrow">Discover the destinations</div><h2>A little inspiration for every port</h2><p class="subnote">Ideas, not reservations. We're keeping the trip relaxed and letting each island set the pace.</p><div class="places" id="places"></div></section><section class="footer"><strong>🌊 Hello from the Caribbean!</strong><p>Check back to see which island comes next. This page shares only the public itinerary and destination information. It doesn't include personal bookings, travel documents or our location on land.</p><div><small>Last itinerary content review: October 16, 2026 · All dates reflect scheduled port calls, not real-time updates.</small></div></section></main>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script><script src="trip-data.js"></script><script src="journal-data.js"></script><script src="position-data.js"></script><script>
 const fmt=d=>new Date(d+'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric'});const todayISO=()=>{let x=new Intl.DateTimeFormat('en-CA',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());return x};let today=todayISO();let selected=0;const todayInitial=days.findIndex(d=>d[0]>=today);selected=todayInitial<0?days.length-1:todayInitial;
-let map,shipMarker,segmentLine,estimatedMarker,travelMarker,traveledRoute,remainingRoute,allRoutes=[],legRoute,travelMode=false,followShip=false,legOnly=false,savedView=null,destinationMarker;const first=days[0][0],last=days[days.length-1][0];const indexToday=today<first?-1:today>last?days.length:days.findIndex(d=>d[0]>=today);
+let map,shipMarker,segmentLine,estimatedMarker,travelMarker,traveledRoute,remainingRoute,allRoutes=[],legRoute,travelMode=false,followShip=true,legOnly=false,savedView=null,destinationMarker;const first=days[0][0],last=days[days.length-1][0];const indexToday=today<first?-1:today>last?days.length:days.findIndex(d=>d[0]>=today);
+// Manually curated offshore shaping points for each pair of daily itinerary anchors.
+// Illustrative sea corridors, NOT verified ship routes or authorized marine navigation.
+// Each array describes offshore points BETWEEN days[index] and days[index+1].
+const offshore={
+  0:[[25.9,-80.6],[25.3,-81.7],[24.45,-82.65]],
+  1:[[22.4,-85.0],[21.3,-85.6]],
+  2:[[18.5,-86.75],[17.2,-86.85]],
+  3:[[16.05,-86.9],[16.4,-87.65],[17.0,-88.05]],
+  4:[[18.0,-87.75],[18.8,-87.6],[19.6,-87.2]],
+  5:[[21.4,-86.3],[22.2,-85.4]],
+  6:[[24.05,-83.0],[24.6,-82.0],[25.35,-80.9]],
+  7:[[26.35,-79.65],[26.65,-79.05]],
+  8:[[26.1,-77.75],[25.2,-75.5],[23.7,-73.3]],
+  9:[[21.5,-71.1],[20.55,-70.55]],
+  10:[[20.0,-71.25],[20.55,-71.75],[21.1,-71.65]],
+  11:[[22.0,-72.2],[22.5,-73.6],[23.1,-75.0]],
+  12:[[24.2,-76.7],[25.0,-78.0],[25.65,-78.8]],
+  13:[[25.85,-79.35],[26.05,-79.75]]
+};
+function dailySeaPath(i){
+ return [waypoint(i),...(offshore[i]||[]),waypoint(i+1)];
+}
+function distanceKm(a,b){
+ const rad=Math.PI/180,dLat=(b[0]-a[0])*rad,dLon=(b[1]-a[1])*rad;
+ const x=Math.sin(dLat/2)**2+Math.cos(a[0]*rad)*Math.cos(b[0]*rad)*Math.sin(dLon/2)**2;
+ return 12742*Math.atan2(Math.sqrt(x),Math.sqrt(1-x));
+}
+function edgeAtFraction(i,t){
+ const points=dailySeaPath(i),lengths=points.slice(1).map((p,j)=>distanceKm(points[j],p));
+ const total=lengths.reduce((a,b)=>a+b,0),target=total*Math.max(0,Math.min(1,t));
+ let walked=0;
+ for(let k=0;k<lengths.length;k++){
+  if(walked+lengths[k]>=target||k===lengths.length-1){
+   const part=lengths[k]===0?0:(target-walked)/lengths[k];
+   return [points[k][0]+(points[k+1][0]-points[k][0])*part,points[k][1]+(points[k+1][1]-points[k][1])*part];
+  }
+  walked+=lengths[k];
+ }
+ return points[points.length-1];
+}
+function routeRange(start,finish){
+ const pts=[waypoint(start)];
+ for(let i=start;i<finish;i++)pts.push(...dailySeaPath(i).slice(1));
+ return pts;
+}
+function routeSplit(start,finish,p){
+ const route=routeRange(start,finish);
+ if(p.state==='upcoming')return {past:[],future:route};
+ if(p.state==='completed')return {past:route,future:[]};
+ if(p.from<start)return {past:[],future:route};
+ if(p.from>=finish)return {past:route,future:[]};
+ const past=routeRange(start,p.from),edge=dailySeaPath(p.from);
+ const fractions=edge.slice(1).map((q,i)=>distanceKm(edge[i],q));
+ const length=fractions.reduce((a,b)=>a+b,0),threshold=p.ratio*length;
+ let covered=0,cut=0;
+ for(let i=0;i<fractions.length;i++){if(covered+fractions[i]>=threshold){cut=i;break;}covered+=fractions[i];cut=i+1;}
+ const at=[p.lat,p.lng];
+ return {past:[...past,...edge.slice(1,cut+1),at],future:[at,...edge.slice(cut+1),...routeRange(p.from+1,finish).slice(1)]};
+}
 // Smooth, schematic curve through the itinerary's intermediate sea-day waypoints.
 // Catmull–Rom reaches each waypoint exactly; this is not a verified navigational channel.
 function smoothRoute(points,steps=12){
@@ -79,8 +138,8 @@ function estimatedPosition(now=new Date()){
  const start=Date.UTC(2026,9,24,12),amount=(local-start)/86400000;
  if(amount<0)return {state:'upcoming',lat:days[0][3],lng:days[0][4]};
  if(amount>=days.length-1)return {state:'completed',lat:days[days.length-1][3],lng:days[days.length-1][4]};
- const i=Math.floor(amount),ratio=amount-i,a=days[i],b=days[i+1];
- return {state:'voyage',from:i,to:i+1,ratio,lat:a[3]+(b[3]-a[3])*ratio,lng:a[4]+(b[4]-a[4])*ratio};
+ const i=Math.floor(amount),ratio=amount-i,pos=edgeAtFraction(i,ratio);
+ return {state:'voyage',from:i,to:i+1,ratio,lat:pos[0],lng:pos[1]};
 }
 // Split the schematic spline at the elapsed-time position, not at the nearest spatial point.
 // That avoids errors where the planned itinerary doubles back through Fort Lauderdale.
@@ -104,8 +163,7 @@ function displayRoute(){
    start=i;while(start>0&&!isActualStop(start))start--;
    finish=Math.max(i+1,start+1);while(finish<days.length-1&&!isActualStop(finish))finish++;
  }
- const points=days.slice(start,finish+1).map(d=>[d[3],d[4]]);
- const split=splitScheduledSpline(points,start,p);
+ const split=routeSplit(start,finish,p);
  traveledRoute.setLatLngs(split.past);
  remainingRoute.setLatLngs(split.future);
  const currentDestination=days[finish][1];
@@ -213,7 +271,7 @@ document.getElementById('centerToggle').onclick=()=>{
 document.getElementById('travelToggle').onclick=()=>{
  travelMode=!travelMode;
  if(travelMode){
-  if(map){savedView={center:map.getCenter(),zoom:map.getZoom()};const p=estimatedPosition();if(p.lat!==undefined)map.setView([p.lat,p.lng],8);}
+  if(map){savedView={center:map.getCenter(),zoom:map.getZoom()};const p=estimatedPosition();if(p.lat!==undefined)map.setView([p.lat,p.lng],10);}
  }else if(map&&savedView){map.setView(savedView.center,savedView.zoom);savedView=null;}
  syncFollowButton();refreshEstimate();
 };
@@ -222,7 +280,7 @@ document.getElementById('routeToggle').onclick=()=>{
  button.setAttribute('aria-pressed',String(legOnly));button.textContent=legOnly?'Route: To next port':'Route: Entire voyage';
  displayRoute();
 };
-displayAISPosition();refreshEstimate();setInterval(refreshEstimate,300000);document.getElementById('followEstimate').onclick=()=>{const p=estimatedPosition();if(map&&p.lat!==undefined){map.panTo([p.lat,p.lng]);if(travelMode){followShip=true;syncFollowButton();}}};
+displayAISPosition();refreshEstimate();syncFollowButton();setInterval(refreshEstimate,300000);document.getElementById('followEstimate').onclick=()=>{const p=estimatedPosition();if(map&&p.lat!==undefined){map.panTo([p.lat,p.lng]);if(travelMode){followShip=true;syncFollowButton();}}};
 
 document.getElementById('prev').onclick=()=>setDay(selected-1);document.getElementById('next').onclick=()=>setDay(selected+1);document.getElementById('today').onclick=()=>setDay(Math.max(0,Math.min(days.length-1,days.findIndex(d=>d[0]>=today)<0?14:days.findIndex(d=>d[0]>=today))));setDay(selected);
 </script></body></html>
