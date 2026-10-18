@@ -1,4 +1,7 @@
-// Public, non-secret client configuration ONLY. Do not put service_role keys here.
-// Replace with your Supabase project URL and publishable/anon key after private setup.
-// Even with these values set, the database RLS policy must be enabled first.
-window.JOURNEY_MESSAGES_CONFIG = { url: "", publishableKey: "" };
+// Public browser configuration for private family messaging.
+// This is a publishable key, NOT a secret. Access is enforced by Supabase RLS.
+// Supabase Auth invitations and approval of members are still administrator-only.
+window.JOURNEY_MESSAGES_CONFIG = {
+ url: "https://iqwlpyvrlggasynljsjz.supabase.co",
+ publishableKey: "sb_publishable_IIAX9RL0YHw3kHadRSrRxw_9JsAxjAy"
+};
