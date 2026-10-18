@@ -124,6 +124,15 @@ The green marker estimates ship progress by linear interpolation between consecu
 - These are **illustrative** maritime curves, not actual navigation paths; sea-day points can be approximate and any land-crossing visual artifacts should be adjusted with additional verified sea waypoints in future versions.
 - GitHub source and JavaScript syntax checked; visual map behavior to be tested on iPad.
 
+## v0.6.1 — Traveled and Remaining Route
+
+- **Solid teal line:** schematic portion of the itinerary already elapsed, ending at the calculated ship marker.
+- **Dotted blue line:** estimated remaining path in the itinerary.
+- Applies to both **Entire voyage** and **To next port** route modes.
+- Splits the smooth curve by chronological itinerary segment and elapsed fraction (not nearest geographical point, which can be wrong on looping cruises).
+- Before embarkation, only the planned dotted route appears. After disembarkation, the scheduled voyage is shown as solid.
+- Distances and route shapes remain illustrative, not nautical navigation or GPS. Interactive browser visual confirmation is still recommended.
+
 ## Future milestones
 
 - v0.1.0: family cruise itinerary, interactive map, planned trip progress, port overviews
