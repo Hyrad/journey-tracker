@@ -248,7 +248,12 @@ function adjustDisclosureForScreen(){
  if(!itinerary.dataset.userToggled)itinerary.open=!mobileLayout.matches;
 }
 document.getElementById('itineraryDetails').addEventListener('toggle',()=>{if(window.__disclosureReady)document.getElementById('itineraryDetails').dataset.userToggled='true';});
-adjustDisclosureForScreen();window.__disclosureReady=true;
+adjustDisclosureForScreen();
+// On compact screens start with summaries, not three fully expanded dashboards.
+if(mobileLayout.matches){
+ ['todayAdventure','journeyProgressDetails','destinationDashboardDetails'].forEach(id=>{document.getElementById(id).open=false;});
+}
+window.__disclosureReady=true;
 mobileLayout.addEventListener('change',adjustDisclosureForScreen);
 document.querySelectorAll('.quick-nav a').forEach(a=>a.addEventListener('click',()=>{
  const id=a.getAttribute('href');
