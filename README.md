@@ -1,3 +1,12 @@
+## v1.5.0 — Photo postcards (draft and review workflow)
+
+- Postcard Studio now accepts one photo from iPhone/iPad Photo Library or files. Images are resized to at most 1200 px and recompressed locally before saving with the postcard draft in browser localStorage.
+- A live photo preview and accessible photo description accompany the postcard. Existing text-only drafts remain readable.
+- “Préparer pour publication” uses the system Share Sheet where supported, or copies draft text as a fallback. This is for **human review only**. No public website or Supabase upload occurs automatically.
+- Public publishing still requires an explicit approval and upload/commit of the approved photo and journal entry to the public repository. Photo files may be visible to anyone after that publication.
+- Local browser storage is not synced or backed up, and Safari may clear it or refuse large drafts. Test photo import/share on iPhone before departure.
+- The existing invitation-only family messages and public/private access separation are unchanged.
+
 ## v1.4.0 — Tableau de bord vivant
 
 - Public, compact, bilingual at-a-glance dashboard above the daily adventure.
