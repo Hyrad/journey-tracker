@@ -246,6 +246,14 @@ The green marker estimates ship progress by linear interpolation between consecu
 - iPhone PWA cache version incremented to fetch the updated translation script and related pages. Refresh the installed app online after deployment.
 - This first translation pass does not claim exhaustive localization of every lengthy destination guide or uncommon status message. The original English remains accessible. Mobile Safari visual review is pending.
 
+## v1.3.2 — Traduction française approfondie
+
+- Français par défaut, bascule FR/EN mémorisée dans l'appareil, sur le site principal, la messagerie et l'atelier de cartes postales.
+- Traduction étendue de l'accueil, des cartes récapitulatives, des boutons de navigation, des modes du trajet, des avertissements, de la messagerie et des brouillons.
+- Les noms propres et les messages rédigés par les proches restent inchangés.
+- Mise à jour du cache PWA pour récupérer les nouvelles ressources après une visite en ligne.
+- Vérification de la syntaxe JavaScript et de la persistance GitHub. Une revue visuelle et linguistique sur Safari demeure nécessaire, notamment pour les guides longs et les phrases dynamiques moins courantes.
+
 ## Future milestones
 
 - v0.1.0: family cruise itinerary, interactive map, planned trip progress, port overviews
