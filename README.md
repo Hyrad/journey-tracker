@@ -171,6 +171,15 @@ The green marker estimates ship progress by linear interpolation between consecu
 - No AIS or GPS positions. The movements remain modeled.
 - Tested: GitHub source persistence and inline JavaScript syntax. Interactive simulator still needs mobile-browser verification.
 
+## v0.8.1 — Simulation reliability fixes and tests
+
+- Fixed at-sea ship status text referencing a missing `to` itinerary index.
+- Corrected active-port detection to use the docked stop index, not a previous sea-day anchor.
+- Prevented out-of-range final-leg indexing in the **To next port** route mode after voyage completion.
+- Tested 9 deterministic simulation cases (predeparture, Roatán arrival/port/departure, Belize dock, Oct 31 / Nov 1 daylight-saving boundary, Grand Turk dock and final completion): **all passed**.
+- Source syntax and GitHub persistence verified. Browser-level Leaflet rendering and real-world timetable/time-zone assumptions remain unverified.
+- Provisional port times must never substitute for Princess's onboard all-aboard instructions.
+
 ## Future milestones
 
 - v0.1.0: family cruise itinerary, interactive map, planned trip progress, port overviews
