@@ -106,6 +106,16 @@ The green marker estimates ship progress by linear interpolation between consecu
 - Before departure, no current interpolated ship position is shown, so no current distance is claimed.
 - JavaScript syntax and GitHub commit were verified; interactive browser testing remains recommended.
 
+## v0.5.7 — Ship-follow camera
+
+- Travel view follows the **calculated** ship icon and recenters it automatically after zooming, without overriding the zoom level.
+- Dragging the map pauses follow mode to allow free manual exploration.
+- The Travel view button changes to **Recenter & follow ship**. Tapping it resumes following at the current zoom.
+- When already following, tapping the same button exits Travel view and restores the original saved map view.
+- The independent route visibility toggle remains in place.
+- Before departure, no estimated ship location is fabricated.
+- Browser-level touch behavior should be verified on iPad; JavaScript syntax and repository persistence are checked.
+
 ## Future milestones
 
 - v0.1.0: family cruise itinerary, interactive map, planned trip progress, port overviews
