@@ -73,6 +73,15 @@ The workflow installs a Python WebSocket client, listens for up to 45 seconds fo
 
 **Licensing gate:** AISStream public documentation describes the feed and backend-key requirements, but explicit permission to republish raw vessel positions publicly has not been established. Do not enable public AIS updates or persistence until written terms/permission and sufficient offshore coverage are confirmed. See https://www.aisstream.io/documentation/ and https://github.com/aisstream/issues/issues/290 .
 
+## v0.5.1 — MyShipTracking external view
+
+- Loads the **official published** MyShipTracking map widget using their documented `widgetApi.js` embed script.
+- Links directly to [Star Princess (IMO 9863120 / MMSI 310869000)](https://www.myshiptracking.com/vessels/star-princess-mmsi-310869000-imo-9863120).
+- Distinguishes this provider map (may show other vessels) from the scheduled illustrative route and from the optional independently ingested AIS marker.
+- MyShipTracking may be outside AIS receiver coverage, particularly offshore. It does not guarantee real-time coordinates.
+- This integration intentionally does not scrape, store or republish raw AIS positions.
+- **Validation remaining:** Open the live GitHub Pages site on an iPad/desktop browser to confirm their widget actually renders under third-party browser and network restrictions. Their published embed documentation does not establish a ship-specific auto-focus option.
+
 ## Future milestones
 
 - v0.1.0: family cruise itinerary, interactive map, planned trip progress, port overviews
