@@ -208,6 +208,16 @@ The green marker estimates ship progress by linear interpolation between consecu
 - Do not mistake provisional schedule-driven ship movement for live GPS. Official Princess app and onboard notices remain authoritative, particularly for all-aboard times.
 - The app-shell/source JavaScript syntax and GitHub persistence have been verified; iPhone installation and offline usability still need device-level testing before declaring departure readiness.
 
+## v1.1.0 — Family Postcards & private drafting
+
+- Public travel journal displays only entries manually added to `journal-data.js` after explicit approval. **No family postcard is published by this release.**
+- New `postcard-studio.html` provides an optional private draft workspace. Drafts are stored in that browser's `localStorage` only (not synced or uploaded); clearing browsing data can delete them, and someone else using the same device/profile could view them.
+- Draft, preview, edit, delete, and **Copy for approval** actions. The copied text explicitly marks the postcard as unapproved. Copying does **not** post or commit content. Submit the draft for review and approve any publication explicitly.
+- Images are not uploaded by the drafting tool. Any eventual published photo must be selected and approved before adding it to the public `photos/` directory.
+- New link to the Postcard Studio from the journal, and more precise empty-state text in the public journal.
+- Avoid real-time locations, sensitive booking details, personal identifiers, or other information unsuitable for the public internet.
+- JavaScript parsing and GitHub persistence verified; iPhone functional testing pending.
+
 ## Future milestones
 
 - v0.1.0: family cruise itinerary, interactive map, planned trip progress, port overviews
