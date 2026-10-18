@@ -17,7 +17,7 @@ async def main():
     received = 0
     subscription = {
         "APIKey": key,
-        "BoundingBoxes": [[[12, -91], [32, -64]]],
+        "BoundingBoxes": [[[32, -91], [12, -64]]],
         "FiltersShipMMSI": [MMSI],
         "FilterMessageTypes": ["PositionReport"],
     }
