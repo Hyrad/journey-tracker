@@ -99,6 +99,25 @@ const patterns=[
 [/^Journey progress$/,'Progression du voyage'],
 [/^Next destination$/,'Prochaine destination'],
 [/^No AIS feed connected$/,'Aucun flux AIS connecté'],
+[/^No approved memories for this stop yet\.$/,'Aucun souvenir approuvé pour cette escale.'],
+[/^No family postcards approved for publication yet\./,'Aucune carte postale familiale approuvée pour publication.'],
+[/^This account is not approved for the private family board\.$/,'Ce compte n’a pas encore accès aux messages familiaux.'],
+[/^Signed out\.$/,'Déconnecté.'],
+[/^Message sent to approved family members\.$/,'Message envoyé aux proches autorisés.'],
+[/^The scheduled voyage has ended\./,'Le voyage prévu est terminé.'],
+[/^Pre-departure placeholder:/,'Position provisoire avant le départ :'],
+[/^Scheduled in port at /,'À quai selon l’horaire à '],
+[/^Illustrative estimate: /,'Estimation indicative : '],
+[/^Planned route distance from /,'Distance estimée sur l’itinéraire depuis '],
+[/^Estimated remaining distance along the planned offshore route: /,'Distance restante estimée sur le trajet maritime prévu : '],
+[/^The voyage has not begun\./,'Le voyage n’a pas encore commencé.'],
+[/^This itinerary waypoint has already been reached or passed in the schedule\./,'Cette étape est déjà passée selon l’itinéraire.'],
+[/^Sailing begins October 24\./,'Le départ est prévu le 24 octobre.'],
+[/^Scheduled departure: /,'Départ prévu : '],
+[/^Time and onboard clock require Princess confirmation\./,'Heure à confirmer auprès de Princess.'],
+[/^At sea · provisional arrival in /,'En mer · arrivée provisoire dans '],
+[/^In port · provisional departure in /,'À quai · départ provisoire dans '],
+[/^Day (\d+) of (\d+)$/,'Jour $1 sur $2'],
 [/^No messages yet/,'Aucun message pour l’instant'],
 [/^Please sign in with an invited account\.$/,'Connectez-vous avec un compte invité.'],
 [/^Invitation accepted\. Awaiting family administrator approval\.$/,'Invitation acceptée. En attente de validation par l’administrateur familial.'],
@@ -109,11 +128,11 @@ const entries=new WeakMap();
 let processing=false;
 function translate(src){if(exact[src])return exact[src];let str=src;for(const [r,rep] of patterns)str=str.replace(r,rep);return str}
 function processText(node){if(!node.nodeValue||!node.nodeValue.trim())return;
- const raw=node.nodeValue,lead=raw.match(/^\s*/)[0],tail=raw.match(/\s*$/)[0],core=raw.trim();
+ if(node.parentElement?.closest('#journalEntries,#latestJournal,#feed,#drafts,#previewMessage,#previewTitle'))return;const raw=node.nodeValue,lead=raw.match(/^\s*/)[0],tail=raw.match(/\s*$/)[0],core=raw.trim();
  const previous=entries.get(node);
  if(language==='en'){if(previous&&raw!==previous.original){if(raw===previous.french)node.nodeValue=previous.original;else entries.set(node,{original:raw,french:translate(raw.trim())})}else if(previous)node.nodeValue=previous.original;return;}
  if(previous&&raw===previous.french)return;
- const french=lead+translate(core)+tail;entries.set(node,{original:raw,french});if(french!==raw)node.nodeValue=french;
+ const pref=core.match(/^(?:[☀️📈📍📡ℹ️✉️🌴🛳️🗺️📅💬🌊⚓🏠⏳]+\\s*)+/u);const translated=pref?pref[0]+translate(core.slice(pref[0].length)):translate(core);const french=lead+translated+tail;entries.set(node,{original:raw,french});if(french!==raw)node.nodeValue=french;
 }
 function walk(root){if(root.nodeType===3){processText(root);return}if(root.nodeType!==1&&root.nodeType!==9&&root.nodeType!==11)return;
  if(root.nodeType===1&&['SCRIPT','STYLE','TEXTAREA','INPUT','SELECT','OPTION','CODE','PRE'].includes(root.tagName))return;
