@@ -82,6 +82,12 @@ The workflow installs a Python WebSocket client, listens for up to 45 seconds fo
 - This integration intentionally does not scrape, store or republish raw AIS positions.
 - **Validation remaining:** Open the live GitHub Pages site on an iPad/desktop browser to confirm their widget actually renders under third-party browser and network restrictions. Their published embed documentation does not establish a ship-specific auto-focus option.
 
+## v0.5.4 — Automatically calculated route estimate
+
+The green marker estimates ship progress by linear interpolation between consecutive daily itinerary waypoints, anchored to noon America/New_York on each day. It refreshes every five minutes while the page is open and starts after the scheduled first waypoint. Select **View estimated position** to center on the computed marker. The existing ship emoji remains an itinerary-date selection marker; the two markers mean different things.
+
+**Important:** This is a schematic, not a navigational model. Sea-day coordinates and waypoint timing are illustrative; no actual port arrival/departure times, routes, currents or GPS data are used. Actual vessel position may differ substantially. External tracking links remain available.
+
 ## Future milestones
 
 - v0.1.0: family cruise itinerary, interactive map, planned trip progress, port overviews
