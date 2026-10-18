@@ -63,6 +63,16 @@ Workflow:
 - GitHub Pages does not fetch AIS itself. Any automated ingestion would need a licensed/authorized provider, suitable rate and coverage, properly stored credentials, and a permitted redistribution model.
 - No paid provider subscription or API keys have been configured. Do not present this release as a live-AIS service.
 
+## AISStream GitHub Actions feasibility test
+
+A **manual-only**, read-only workflow is available at **Actions → AISStream coverage probe (manual only) → Run workflow**.
+
+Before running, create an AISStream API key via [aisstream.io](https://www.aisstream.io/) and store it securely in GitHub **Settings → Secrets and variables → Actions → New repository secret** as `AISSTREAM_API_KEY`. Do **not** paste the key into a chat, source file or workflow input. GitHub Actions must be enabled for this repository.
+
+The workflow installs a Python WebSocket client, listens for up to 45 seconds for MMSI `310869000` inside a broad Caribbean rectangle, and reports only confirmation and matching-message counts. It publishes **no coordinates**, and does not change `position-data.js`. A zero count during a short test is inconclusive, particularly for a vessel offshore. The test runs **only when manually launched**, not on a schedule.
+
+**Licensing gate:** AISStream public documentation describes the feed and backend-key requirements, but explicit permission to republish raw vessel positions publicly has not been established. Do not enable public AIS updates or persistence until written terms/permission and sufficient offshore coverage are confirmed. See https://www.aisstream.io/documentation/ and https://github.com/aisstream/issues/issues/290 .
+
 ## Future milestones
 
 - v0.1.0: family cruise itinerary, interactive map, planned trip progress, port overviews
