@@ -97,6 +97,15 @@ The green marker estimates ship progress by linear interpolation between consecu
 - Reduced-motion devices disable the ship's bobbing animation.
 - Verification: JavaScript syntax and GitHub persistence checked. Browser behavior should be tested on iPad before relying on touch interactions.
 
+## v0.5.6 — Fixed Ship / Destination Inspection
+
+- The ship icon is driven exclusively by the current interpolated scheduled position, not day selection.
+- Clicking a port or day selects a separate orange destination marker; it never moves the ship icon.
+- The destination information panel shows the **scheduled visit date** and the approximate great-circle distance from the current scheduled ship estimate in nautical miles and kilometres.
+- The distance is straight-line only: it is **not** actual navigational/sailing distance, speed, a confirmed ETA, or real GPS.
+- Before departure, no current interpolated ship position is shown, so no current distance is claimed.
+- JavaScript syntax and GitHub commit were verified; interactive browser testing remains recommended.
+
 ## Future milestones
 
 - v0.1.0: family cruise itinerary, interactive map, planned trip progress, port overviews
