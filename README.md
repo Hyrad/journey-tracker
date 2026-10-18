@@ -1,3 +1,12 @@
+## v1.4.0 — Tableau de bord vivant
+
+- Public, compact, bilingual at-a-glance dashboard above the daily adventure.
+- Fort Lauderdale time (America/New_York), days until embarkation or return, date-based trip completion and upcoming port stop from the published itinerary.
+- Weather forecast uses the public Open-Meteo API for the upcoming itinerary stop, only when its scheduled date falls within the forecast window. Forecast is labelled external and **not ship weather, GPS or live onboard observation**.
+- If forecasts are too distant or the API fails, an honest unavailable / too early label is shown. Requires an internet connection.
+- No member information or Supabase credentials are used in the public dashboard. Private messages remain separated.
+- Safari/iPad visual check is pending; syntax and GitHub contents were checked.
+
 # Journey Tracker
 
 Reusable family-friendly trip itinerary and map website.
