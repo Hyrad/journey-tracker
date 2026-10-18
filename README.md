@@ -116,6 +116,14 @@ The green marker estimates ship progress by linear interpolation between consecu
 - Before departure, no estimated ship location is fabricated.
 - Browser-level touch behavior should be verified on iPad; JavaScript syntax and repository persistence are checked.
 
+## v0.6.0 — Continuous curved itinerary
+
+- Full voyage now uses a smooth spline through the known daily itinerary positions.
+- The **Route: To next port** mode runs from the most recent scheduled actual stop, through intermediate sea-day points, to the next scheduled port rather than stopping mid-ocean.
+- Selecting a different port does not move the calculated ship or change the active passage.
+- These are **illustrative** maritime curves, not actual navigation paths; sea-day points can be approximate and any land-crossing visual artifacts should be adjusted with additional verified sea waypoints in future versions.
+- GitHub source and JavaScript syntax checked; visual map behavior to be tested on iPad.
+
 ## Future milestones
 
 - v0.1.0: family cruise itinerary, interactive map, planned trip progress, port overviews
