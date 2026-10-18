@@ -88,6 +88,15 @@ The green marker estimates ship progress by linear interpolation between consecu
 
 **Important:** This is a schematic, not a navigational model. Sea-day coordinates and waypoint timing are illustrative; no actual port arrival/departure times, routes, currents or GPS data are used. Actual vessel position may differ substantially. External tracking links remain available.
 
+## v0.5.5 — Travel View and Route Visibility
+
+- **Travel view:** A button switches to a close-follow map view at zoom level 8, with an animated ship illustration at the calculated (not GPS) location. Toggling off restores the user's previous map center and zoom.
+- **Route view:** Independent toggle between the full schematic itinerary and the currently interpolated leg. This keeps other route segments hidden when focusing on the next passage.
+- Both modes continue to use the existing scheduled-waypoint interpolation, and are clearly labeled estimates.
+- Prior to sailing, no estimated ship position is shown. Users can still browse a selected itinerary day.
+- Reduced-motion devices disable the ship's bobbing animation.
+- Verification: JavaScript syntax and GitHub persistence checked. Browser behavior should be tested on iPad before relying on touch interactions.
+
 ## Future milestones
 
 - v0.1.0: family cruise itinerary, interactive map, planned trip progress, port overviews
