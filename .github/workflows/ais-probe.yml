@@ -1,0 +1,23 @@
+name: AISStream coverage probe (manual only)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install WebSocket client
+        run: python -m pip install 'websockets>=13,<17'
+      - name: Test AIS stream for Star Princess, without publishing location
+        env:
+          AISSTREAM_API_KEY: ${{ secrets.AISSTREAM_API_KEY }}
+        run: python scripts/ais_probe.py
