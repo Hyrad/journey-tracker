@@ -151,6 +151,16 @@ The green marker estimates ship progress by linear interpolation between consecu
 - Passed stops report zero **remaining** route distance, not zero distance sailed.
 - Distances are estimates derived from handcrafted waypoints, not nautical charts or verified shipping lanes.
 
+## v0.7.0 — Voyage Dashboard
+
+- Compact at-a-glance dashboard above the map: next scheduled port and visit date, planned nautical miles to that stop, estimated nautical miles elapsed, and nautical miles remaining on the full illustrative itinerary.
+- Route-distance progress bar using the same offshore route approximation as the map.
+- Calendar-day estimate until the next scheduled visit, explicitly **not a confirmed arrival-hour ETA**.
+- Before departure, measures planned distances from the embarkation waypoint. After completion, shows a completed voyage with zero remaining distance.
+- Refreshes when the page loads and every five minutes while it remains open.
+- Precise arrival/departure times have **not** been verified against official Princess information; adding such data is a future accuracy upgrade, not part of this release.
+- No live AIS or official maritime routing data used. All distance figures are schematic.
+
 ## Future milestones
 
 - v0.1.0: family cruise itinerary, interactive map, planned trip progress, port overviews
