@@ -1,0 +1,18 @@
+{
+  "name": "Journey Tracker — Caribbean Adventure",
+  "short_name": "Journey Tracker",
+  "description": "Family Caribbean cruise itinerary and voyage companion",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f4f8f6",
+  "theme_color": "#082c40",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
