@@ -180,6 +180,15 @@ The green marker estimates ship progress by linear interpolation between consecu
 - Source syntax and GitHub persistence verified. Browser-level Leaflet rendering and real-world timetable/time-zone assumptions remain unverified.
 - Provisional port times must never substitute for Princess's onboard all-aboard instructions.
 
+## v0.9.0 — Family Cruise Companion
+
+- **Today's Adventure** card placed above the map, presenting a relaxed schedule-based daily summary, optional activity suggestion and the next scheduled port.
+- Day view follows either real current Eastern-calendar date or the simulation-preview date. The destination-specific guide button selects and scrolls to the corresponding itinerary day.
+- Simple mobile-friendly quick navigation to Today, Map, Itinerary and Ports, with accessible-sized touch targets.
+- Port-day panel explicitly reminds users to check the authoritative Princess app/onboard all-aboard time, never to rely on provisional model hours.
+- No reservations, activity bookings, private family journal entries or private LifeOS records were exposed.
+- Static JavaScript syntax verified and committed to GitHub; visual Safari testing still recommended.
+
 ## Future milestones
 
 - v0.1.0: family cruise itinerary, interactive map, planned trip progress, port overviews
