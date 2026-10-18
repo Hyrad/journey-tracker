@@ -161,6 +161,16 @@ The green marker estimates ship progress by linear interpolation between consecu
 - Precise arrival/departure times have **not** been verified against official Princess information; adding such data is a future accuracy upgrade, not part of this release.
 - No live AIS or official maritime routing data used. All distance figures are schematic.
 
+## v0.8.0 — Time-Aware Port Stops & Preview
+
+- Adds `port-schedule.js`: arrival/departure hours for each actual stop, transcribed from a [third-party Star Princess timetable](https://www.cruisetimetables.com/cruisesonstarprincess-24oct2026.html).
+- **Not yet verified with Princess.** For modeling purposes the listed hours are treated as America/New_York reference-clock times, including Eastern Standard Time after the Nov 1 DST transition. This is an assumption: local port time and Princess onboard time may differ.
+- Ship remains at the port coordinate between the scheduled arrival and departure, then advances along the illustrated offshore route to the next stop. Sea-day points remain geometric intermediate anchors, not stops.
+- Dashboard shows approximate time until the next arrival or departure, labeled provisional. It must **never** be used as the ship's authoritative all-aboard time.
+- Simulation preview supports selecting a future date/time (interpreted Eastern time), with a button to return to the real current date/time. It alters **only the preview**, never the published itinerary or visitor data.
+- No AIS or GPS positions. The movements remain modeled.
+- Tested: GitHub source persistence and inline JavaScript syntax. Interactive simulator still needs mobile-browser verification.
+
 ## Future milestones
 
 - v0.1.0: family cruise itinerary, interactive map, planned trip progress, port overviews
