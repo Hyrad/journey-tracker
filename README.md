@@ -198,6 +198,16 @@ The green marker estimates ship progress by linear interpolation between consecu
 - Improved keyboard/touch affordances with native summary buttons. Existing journal publication consent remains unchanged.
 - GitHub code and JavaScript syntax checked; real iPhone Safari visual verification pending.
 
+## v1.0.0 — Departure Edition PWA
+
+- Web app manifest with standalone display, ship icon, and Home Screen launch URL in the GitHub Pages project scope.
+- Service worker caches the public app shell and itinerary data on the first online visit, and uses network-first updates when online. Offline revisit works for previously cached pages and itinerary text.
+- Important limitations: online map tiles, externally hosted Leaflet assets (if not previously available in browser cache), remote photographs, verified ship tracking, and external links need internet. An offline indicator makes this clear. No private or authenticated data is cached by this worker.
+- Mobile bottom navigation: Today, Map, Itinerary, Journal. The itinerary expands automatically when using its tab. Uses native safe-area padding on modern iPhones.
+- iPhone installation: open the website in **Safari**, Share → **Add to Home Screen**, then open it from the icon. Verify offline availability only after visiting once with a working connection.
+- Do not mistake provisional schedule-driven ship movement for live GPS. Official Princess app and onboard notices remain authoritative, particularly for all-aboard times.
+- The app-shell/source JavaScript syntax and GitHub persistence have been verified; iPhone installation and offline usability still need device-level testing before declaring departure readiness.
+
 ## Future milestones
 
 - v0.1.0: family cruise itinerary, interactive map, planned trip progress, port overviews
