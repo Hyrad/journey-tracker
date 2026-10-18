@@ -227,6 +227,18 @@ The green marker estimates ship progress by linear interpolation between consecu
 - No new public postcards, photos, or private family details were added. The `journal-data.js` publication list remains empty.
 - Code-level JavaScript syntax verified. Safari behavior and visual layout remain to be checked on device.
 
+## v1.3.0 — Private Family Messages (requires activation)
+
+- A standalone `messages.html` page is linked from the website and iPhone bottom navigation.
+- Front end supports invited-member email/password authentication, invitation password setup, family-only message history (100 latest), and posting/refreshing messages when online.
+- Uses a **dedicated Supabase project** with mandatory database row-level security (RLS). Schema and restrictive policies are in `supabase-messages.sql`. Family membership is a manually approved UUID allowlist; a visitor knowing the URL cannot join or read messages merely by knowing that URL.
+- `messages-config.js` is currently **intentionally blank**, so the page shows a setup-required state. This feature is **not operational yet**; no private messages, accounts or project credentials exist in this repository. The static GitHub Pages host cannot itself enforce private authentication.
+- Supabase's publishable/anon client key is allowed in public front-end config **only after RLS is enabled and tested**. NEVER commit a `service_role` key, admin token, private email directory or passwords.
+- Setup (project owner): create dedicated Supabase project; run `supabase-messages.sql` in its SQL editor; disable public sign-ups and anonymous auth in Auth settings; configure allowed redirect URL `https://hyrad.github.io/journey-tracker/messages.html`; invite family members individually using Auth invitation email; manually approve each user UUID in `family_members` using a private SQL editor; set the public project URL and publishable key in `messages-config.js`. Confirm unapproved accounts receive no rows and inserts are denied before inviting family.
+- To revoke access, remove that person's `family_members` row and disable/delete their Supabase Auth user as appropriate. Database rows remain until managed by owner.
+- Privacy: content is private to approved logged-in family accounts but not end-to-end encrypted; Supabase project administrators can access messages. No automatic chat notifications, offline queue, or photo attachments in this version. Don't send booking numbers, sensitive documents, or real-time location details.
+- This release has only source, JavaScript syntax and GitHub persistence checks, **not** a deployed backend access-control penetration test or iPhone functional test.
+
 ## Future milestones
 
 - v0.1.0: family cruise itinerary, interactive map, planned trip progress, port overviews
