@@ -1,23 +1,12 @@
-// Journey Tracker offline shell. Network-first for HTML and app data, cache fallback.
-// Public resources only; never cache authenticated/private pages or third-party AIS.
-const CACHE='journey-tracker-v1-6-1';
-const CORE=['./','./index.html','./trip-data.js','./journal-data.js','./position-data.js','./port-schedule.js','./manifest.webmanifest','./icon.svg' ,'./postcard-studio.html'];
-self.addEventListener('install',event=>{
- event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(CORE)).then(()=>self.skipWaiting()));
-});
-self.addEventListener('activate',event=>{
- event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key!==CACHE).map(key=>caches.delete(key)))).then(()=>self.clients.claim()));
-});
-self.addEventListener('fetch',event=>{
- const req=event.request;
- if(req.method!=='GET'||new URL(req.url).origin!==self.location.origin)return;
- const path=new URL(req.url).pathname;
- if(path.endsWith('/messages.html')||path.endsWith('/messages-config.js')){event.respondWith(fetch(req,{cache:'no-store'}).catch(()=>new Response('Connexion requise pour la messagerie.',{status:503,headers:{'Content-Type':'text/plain; charset=utf-8'}})));return;}
- event.respondWith(fetch(req).then(response=>{
-  if(response.ok&&response.type==='basic'){
-   const copy=response.clone();
-   event.waitUntil(caches.open(CACHE).then(cache=>cache.put(req,copy)));
-  }
-  return response;
- }).catch(()=>caches.match(req).then(cached=>cached|| (req.mode==='navigate'?caches.match('./index.html'):Response.error()))));
+// Journey Tracker v1.7.0: public offline shell only. Private API and auth never cached.
+const CACHE='journey-tracker-v1-7-0';
+const CORE=['./','./index.html','./trip-data.js','./journal-data.js','./position-data.js','./port-schedule.js','./manifest.webmanifest','./icon.svg','./postcard-studio.html','./i18n.js','./dashboard-live.js','./departure-countdown.js','./port-notes.js','./port-comments.js','./port-piers.js','./theme.js','./excursion-planner.js','./quick-nav.js','./offline-status.js'];
+const CDN=['https://unpkg.com/leaflet@1.9.4/dist/leaflet.js','https://unpkg.com/leaflet@1.9.4/dist/leaflet.css','https://esm.sh/@supabase/supabase-js@2.49.8'];
+self.addEventListener('install',event=>event.waitUntil((async()=>{const cache=await caches.open(CACHE);await cache.addAll(CORE);await Promise.allSettled(CDN.map(async url=>{const resp=await fetch(url);if(resp.ok)await cache.put(url,resp)}));await self.skipWaiting()})()));
+self.addEventListener('activate',event=>event.waitUntil((async()=>{const keys=await caches.keys();await Promise.all(keys.filter(key=>key.startsWith('journey-tracker-')&&key!==CACHE).map(key=>caches.delete(key)));await self.clients.claim()})()));
+self.addEventListener('fetch',event=>{const req=event.request,url=new URL(req.url);if(req.method!=='GET')return;
+// Never cache authentication redirects, Supabase database traffic, member messages or configuration.
+if(url.origin===self.location.origin){if(url.pathname.endsWith('/messages.html')||url.pathname.endsWith('/messages-config.js')){event.respondWith(fetch(req,{cache:'no-store'}).catch(()=>new Response('Connexion requise pour la messagerie.',{status:503,headers:{'Content-Type':'text/plain;charset=utf-8'}})));return}
+event.respondWith((async()=>{const cache=await caches.open(CACHE);const clean=url.pathname.split('/').pop()||'index.html';const fallback=await cache.match('./'+clean);try{const resp=await fetch(req);if(resp.ok&&resp.type==='basic'&&!url.searchParams.has('access_token'))event.waitUntil(cache.put('./'+clean,resp.clone()));return resp}catch(e){return fallback||await cache.match('./index.html')||Response.error()}})());return}
+if(CDN.some(s=>url.href===s)||url.hostname==='unpkg.com'&&url.pathname.startsWith('/leaflet@1.9.4/dist/images/')){event.respondWith((async()=>{const cache=await caches.open(CACHE);const cached=await cache.match(req);if(cached)return cached;try{const r=await fetch(req);if(r.ok)event.waitUntil(cache.put(req,r.clone()));return r}catch(e){return Response.error()}})())}
 });
