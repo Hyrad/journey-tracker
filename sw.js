@@ -1,6 +1,6 @@
 // Journey Tracker offline shell. Network-first for HTML and app data, cache fallback.
 // Public resources only; never cache authenticated/private pages or third-party AIS.
-const CACHE='journey-tracker-v1-5-7';
+const CACHE='journey-tracker-v1-5-8';
 const CORE=['./','./index.html','./trip-data.js','./journal-data.js','./position-data.js','./port-schedule.js','./manifest.webmanifest','./icon.svg' ,'./postcard-studio.html'];
 self.addEventListener('install',event=>{
  event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(CORE)).then(()=>self.skipWaiting()));
