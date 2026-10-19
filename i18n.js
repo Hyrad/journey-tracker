@@ -175,6 +175,16 @@ Object.assign(exact,{
 });
 Object.assign(exact,{"☀️ Today’s Adventure":"☀️ L’aventure du jour","Today’s Adventure":"L’aventure du jour","The adventure is almost here":"L’aventure commence bientôt","Preparing to sail":"Préparatifs du départ","Getting ready":"En préparation","Oct 24 · Embarkation · Current schedule":"24 oct. · Embarquement · Horaire actuel","Departure is scheduled for October 24. Explore the itinerary and plan only what sounds fun.":"Le départ est prévu le 24 octobre. Découvrez l’itinéraire et choisissez seulement les activités qui vous plaisent.","Pack at an easy pace":"Préparez vos bagages sans vous presser","Suggestions are optional and not confirmed bookings. Port times are provisional.":"Les activités sont facultatives et ne sont pas des réservations confirmées. Les horaires des escales sont provisoires.","📈 Journey Progress":"📈 Progression du voyage","Journey Progress":"Progression du voyage","Current schedule":"Horaire actuel","Our journey":"Notre voyage","Daily plan":"Programme du jour","Open messages →":"Ouvrir les messages →","Private conversations for invited and approved family members.":"Discussions privées réservées aux proches invités et approuvés.","💬 Family Messages":"💬 Messages familiaux","Family Messages":"Messages familiaux","Messages":"Messages","Your Caribbean day":"Votre journée aux Caraïbes"});
 Object.assign(exact,{'Getting ready':'En préparation','⏳ Getting ready':'⏳ En préparation','Preparing to sail':'Préparatifs du départ','Oct 27':'27 oct.','Next Scheduled Destination':'Prochaine escale prévue'});
+Object.assign(exact,{
+"Friends & family · v1.5.9":"Amis et famille · v1.5.9",
+"💬 Friends & Family Messages":"💬 Messages des proches",
+"Friends & Family Messages":"Messages des proches",
+"Travel journal for friends & family":"Journal de voyage pour nos proches",
+"Private conversations for invited and approved friends and family.":"Discussions privées réservées aux amis et membres de la famille invités et approuvés.",
+"Leave a message for friends and family":"Laisser un message à nos proches",
+"Invitation-only private messages for friends and family":"Messages privés pour les amis et la famille, sur invitation seulement",
+"Trip updates and photos appear here only after we approve them.":"Nos nouvelles et photos apparaissent ici seulement après approbation."
+});
 const patterns=[
 [/^(\d+) days? until sailing$/,'$1 jours avant le départ'],
 [/^Next stop: /,'Prochaine escale : '],
