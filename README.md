@@ -281,3 +281,15 @@ The green marker estimates ship progress by linear interpolation between consecu
 - v0.4.0: opt-in family journal, latest update, and galleries
 - v0.5.0: tracking foundation and correct-vessel external source
 - Future: authorized AIS ingestion if pricing, coverage and redistribution rights permit
+
+## Port civil time — pending production approval
+
+`port-time-zones.js` adds a compact bilingual block to the seven existing destination cards. It uses `Intl.DateTimeFormat`, actual visit dates and IANA zones, with `America/Toronto` for Montréal. A clearly labelled example compares noon in Montréal with local civil time on that visit date; it is not a live clock or a ship-time prediction. November 1 comparisons use noon, after the DST transition.
+
+Zones: Roatán `America/Tegucigalpa`; Belize `America/Belize`; Cozumel `America/Cancun`; Celebration Key and Bimini `America/Nassau`; Amber Cove `America/Santo_Domingo`; Grand Turk `America/Grand_Turk`.
+
+Source checked October 22, 2026: [IANA northamerica](https://data.iana.org/time-zones/tzdb-2026e/northamerica) and [IANA compatibility links](https://data.iana.org/time-zones/tzdb-2026e/backward) (Nassau). The visitor's browser supplies its installed timezone database. Unsupported timezone data shows an unavailable label rather than an invented offset.
+
+No official schedules, modeled ship movement, map labels or all-aboard deadlines are changed. The exact requested Princess safety reminder appears in each language. The new blocks own their translations; the generic translation walker skips them. The service-worker cache includes the module and is versioned for update.
+
+Validation: `node --test tests/port-time-zones.test.cjs`. Browser checks: serve this directory on port 8080 and run `node tests/port-time-zones.browser.cjs` with Playwright and Chromium/WebKit installed. No build step or package manifest exists in this static project.
