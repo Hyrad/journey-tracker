@@ -1,0 +1,5 @@
+const {test}=require('node:test');const assert=require('node:assert/strict');
+const {ports,comparison,offset,copy}=require('../port-time-zones.js');
+test('all seven visit dates match Montreal differences',()=>{assert.deepEqual(ports.map(([d,z])=>comparison(d,z).difference),[-2,-2,-1,0,1,0,0]);});
+test('Montreal DST ends at 06:00 UTC on November 1',()=>{assert.equal(offset(new Date('2026-11-01T05:59:59Z'),'America/Toronto'),-4);assert.equal(offset(new Date('2026-11-01T06:00:00Z'),'America/Toronto'),-5);assert.equal(comparison('2026-10-31','America/Santo_Domingo').difference,0);assert.equal(comparison('2026-11-01','America/Santo_Domingo').difference,1);});
+test('bilingual example labels and complete ship warnings',()=>{for(const [d,z] of ports){const fr=copy(d,z,false),en=copy(d,z,true);assert.match(fr.example,/12 h à Montréal.*heure locale/);assert.match(en.example,/12:00 in Montréal.*local time/);assert.match(fr.warning,/l’heure officielle du navire/);assert.match(en.warning,/ship’s official time/);assert.match(fr.title,/2026/);assert.match(en.title,/2026/);}});
