@@ -440,7 +440,7 @@ document.getElementById('routeToggle').onclick=()=>{
  button.setAttribute('aria-pressed',String(legOnly));button.textContent=legOnly?'Route: To next port':'Route: Entire voyage';
  displayRoute();
 };
-displayAISPosition();refreshEstimate();updateVoyageDashboard();updateAdventure();syncFollowButton();setInterval(()=>{refreshEstimate();updateVoyageDashboard();updateAdventure();},300000);document.getElementById('followEstimate').onclick=()=>{const p=estimatedPosition();if(map&&p.lat!==undefined){map.panTo([p.lat,p.lng]);if(travelMode){followShip=true;syncFollowButton();}}};
+displayAISPosition();refreshEstimate();updateVoyageDashboard();updateAdventure();syncFollowButton();setInterval(()=>{refreshEstimate();updateVoyageDashboard();updateAdventure();},60000);document.getElementById('followEstimate').onclick=()=>{const p=estimatedPosition();if(map&&p.lat!==undefined){map.panTo([p.lat,p.lng]);if(travelMode){followShip=true;syncFollowButton();}}};
 
 document.getElementById('previewClock').addEventListener('change',e=>{
  const value=e.target.value;
