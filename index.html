@@ -348,20 +348,20 @@ function updateProgress(){const title=document.getElementById('progressTitle'),d
 document.getElementById('timeline').addEventListener('click',e=>{const btn=e.target.closest('[data-day]');if(btn)setDay(Number(btn.dataset.day));});document.getElementById('places').addEventListener('click',e=>{const btn=e.target.closest('button[data-guide]');if(!btn)return;const detail=btn.nextElementSibling;detail.hidden=!detail.hidden;btn.setAttribute('aria-expanded',String(!detail.hidden));btn.textContent=detail.hidden?'Explore this port +':'Close guide −';});updateProgress();
 
 function renderJournal(){
- const entries=Array.isArray(window.JOURNEY_JOURNAL)?window.JOURNEY_JOURNAL.filter(e=>e&&typeof e.date==='string'&&typeof e.title==='string'&&typeof e.message==='string'&&e.date>='2026-10-24'&&e.date<='2026-11-07').slice():[];
+ const entries=Array.isArray(window.JOURNEY_JOURNAL)?window.JOURNEY_JOURNAL.concat(window.JOURNEY_CLOUD_POSTCARDS||[]).filter(e=>e&&typeof e.date==='string'&&typeof e.title==='string'&&typeof e.message==='string'&&e.date>='2026-10-24'&&e.date<='2026-11-07').slice():[];
  entries.sort((a,b)=>b.date.localeCompare(a.date));
  const latest=document.getElementById('latestJournal'),container=document.getElementById('journalEntries'),selector=document.getElementById('memoryStop'),timeline=document.getElementById('memoryTimeline'),galleryRoot=document.getElementById('memoryGallery');
  const add=(tag,value,parent,cls)=>{const el=document.createElement(tag);el.textContent=value;if(cls)el.className=cls;parent.appendChild(el);return el};
  const indexFor=e=>Number.isInteger(e.dayIndex)&&days[e.dayIndex]&&days[e.dayIndex][0]===e.date?e.dayIndex:days.findIndex(d=>d[0]===e.date);
- const photosFor=e=>Array.isArray(e.photos)?e.photos.filter(p=>p&&typeof p.src==='string'&&/^photos\/[a-z0-9_-]+\.(jpg|jpeg|png|webp)$/i.test(p.src)).slice(0,6):[];
+ const photosFor=e=>Array.isArray(e.photos)?e.photos.filter(p=>p&&typeof p.src==='string'&&(/^photos\/[a-z0-9_-]+\.(jpg|jpeg|png|webp)$/i.test(p.src)||/^https:\/\/iqwlpyvrlggasynljsjz\.supabase\.co\/storage\/v1\/object\/journey-postcards\//.test(p.src))).slice(0,6):[];
  const fill=(entry,parent,compact)=>{
   const wrapper=document.createElement('article');wrapper.className=compact?'journal-latest':'journal-entry';
   add('div',compact?'Latest approved postcard':'Published travel memory',wrapper,'eyebrow');
   const date=add('time',fmt(entry.date),wrapper);date.dateTime=entry.date;
   const idx=indexFor(entry);if(idx>=0)add('div',days[idx][1],wrapper,'status-muted');
-  add('h3',entry.title,wrapper);add('p',entry.message,wrapper);
+  const en=localStorage.getItem('journey-tracker-language')==='en';add('h3',en&&entry.title_en||entry.title,wrapper);add('p',en&&entry.message_en||entry.message,wrapper);
   const photos=photosFor(entry);
-  if(photos.length){const g=document.createElement('div');g.className='journal-gallery';photos.forEach(p=>{const fig=document.createElement('figure');fig.className='journal-photo';const img=document.createElement('img');img.src=p.src;img.alt=p.alt||'Travel photograph';img.loading='lazy';fig.appendChild(img);if(p.caption)add('figcaption',p.caption,fig);g.appendChild(fig)});wrapper.appendChild(g)}
+  if(photos.length){const g=document.createElement('div');g.className='journal-gallery';photos.forEach(p=>{const fig=document.createElement('figure');fig.className='journal-photo';const img=document.createElement('img');img.src=p.src;img.alt=(localStorage.getItem('journey-tracker-language')==='en'&&p.alt_en)||p.alt||'Travel photograph';img.loading='lazy';fig.appendChild(img);if(p.caption)add('figcaption',p.caption,fig);g.appendChild(fig)});wrapper.appendChild(g)}
   parent.appendChild(wrapper);
  };
  selector.replaceChildren();const base=document.createElement('option');base.value='all';base.textContent='All published memories';selector.append(base);
@@ -371,7 +371,7 @@ function renderJournal(){
   container.replaceChildren();timeline.replaceChildren();galleryRoot.replaceChildren();
   if(!chosen.length){add('p','No approved memories for this stop yet.',container,'journal-empty');return;}
   chosen.forEach(e=>fill(e,container,false));
-  chosen.forEach(e=>{const idx=indexFor(e),button=document.createElement('button');button.type='button';button.textContent=fmt(e.date)+' · '+e.title;button.onclick=()=>{if(idx>=0){setDay(idx);document.getElementById('itineraryDetails').open=true;}button.scrollIntoView({block:'nearest',inline:'nearest'});};timeline.append(button)});
+  chosen.forEach(e=>{const idx=indexFor(e),button=document.createElement('button');button.type='button';button.textContent=fmt(e.date)+' · '+(localStorage.getItem('journey-tracker-language')==='en'&&e.title_en||e.title);button.onclick=()=>{if(idx>=0){setDay(idx);document.getElementById('itineraryDetails').open=true;}button.scrollIntoView({block:'nearest',inline:'nearest'});};timeline.append(button)});
   chosen.forEach(e=>photosFor(e).forEach(p=>{const fig=document.createElement('figure'),img=document.createElement('img');img.src=p.src;img.alt=p.alt||'Approved trip photo';img.loading='lazy';fig.append(img);if(p.caption)add('figcaption',p.caption,fig);galleryRoot.append(fig)}));
  }
  selector.onchange=()=>show(selector.value);
@@ -380,7 +380,8 @@ function renderJournal(){
  show('all');
 }
 
-renderJournal();
+window.renderJourneyJournal=renderJournal;renderJournal();
+document.getElementById('languageSwitch')?.addEventListener('click',()=>setTimeout(renderJournal,0));
 
 
 // Independent AIS position (never derived from the scheduled cruise route).
@@ -453,4 +454,4 @@ document.querySelectorAll('.mobile-tabbar a').forEach(link=>link.addEventListene
  link.setAttribute('aria-current','page');
 }));
 document.getElementById('prev').onclick=()=>setDay(selected-1);document.getElementById('next').onclick=()=>setDay(selected+1);document.getElementById('today').onclick=()=>setDay(Math.max(0,Math.min(days.length-1,days.findIndex(d=>d[0]>=today)<0?14:days.findIndex(d=>d[0]>=today))));setDay(selected);
-</script><script src="i18n.js?v=1.5.14"></script><script src="dashboard-live.js?v=1.4.1"></script><script src="departure-countdown.js?v=1.5.1"></script><script src="messages-config.js"></script><script src="port-notes.js?v=1.7.0"></script><script src="port-comments.js?v=1.7.1"></script><script src="port-piers.js?v=1.5.7"></script><script src="theme.js?v=1.5.12"></script><script src="excursion-planner.js?v=1.7.1"></script><script src="quick-nav.js?v=1.6.1"></script><script src="offline-status.js?v=1.7.0"></script><script src="port-time-zones.js?v=1.7.2"></script></body></html>
+</script><script src="i18n.js?v=1.5.14"></script><script src="dashboard-live.js?v=1.4.1"></script><script src="departure-countdown.js?v=1.5.1"></script><script src="messages-config.js"></script><script src="port-notes.js?v=1.7.0"></script><script src="port-comments.js?v=1.7.1"></script><script src="port-piers.js?v=1.5.7"></script><script src="theme.js?v=1.5.12"></script><script src="excursion-planner.js?v=1.7.1"></script><script src="quick-nav.js?v=1.6.1"></script><script src="offline-status.js?v=1.7.0"></script><script src="port-time-zones.js?v=1.7.2"></script><script src="published-postcards.js?v=1"></script></body></html>
