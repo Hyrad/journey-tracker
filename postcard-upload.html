@@ -5,29 +5,29 @@
 h1{font-size:1.8rem}input,button{box-sizing:border-box;width:100%;padding:14px;margin:8px 0 14px;font:inherit;border-radius:10px;border:1px solid #adc9c6}
 button{background:#087d84;color:#fff;border:0;font-weight:650;cursor:pointer}button:disabled{opacity:.55}
 .notice{background:#e9f5f2;padding:14px;border-radius:10px}.item{background:white;border:1px solid #c9ded8;border-radius:12px;padding:14px;margin:12px 0;overflow-wrap:anywhere}
-.item button{margin:10px 0 0}.muted{color:#526f76;font-size:.9rem}#status{font-weight:600}#logout{background:#e5eeeb;color:#163e49}
+.item button{margin:10px 0 0}.muted{color:#526f76;font-size:.9rem}#status{font-weight:600}
 </style></head><body><a href="./">← Journey Tracker</a>
 <h1>📸 Boîte à photos</h1><p class="notice">Téléversez simplement votre photo. Aucun texte requis. Elle reste privée jusqu’à votre approbation de publication.</p>
-<section id="login"><label>Courriel autorisé<input id="email" type="email" autocomplete="email"></label><button id="send">Recevoir un lien de connexion</button></section>
-<section id="editor" hidden><p id="identity" class="muted"></p><label>Choisir une photo<input id="photo" type="file" accept="image/jpeg,image/png,image/webp,image/*"></label><button id="save">Téléverser la photo</button><p class="muted">Formats JPEG, PNG ou WebP, jusqu’à 5 Mo. Les photos HEIC doivent être converties en JPEG.</p>
-<h2>Photos en attente</h2><p class="muted">Copiez une référence et envoyez-la dans notre conversation ChatGPT. Nous préparerons le texte ensemble.</p><div id="drafts"></div><button id="logout">Déconnexion</button></section>
+<section id="editor"><label>Choisir une photo<input id="photo" type="file" accept="image/jpeg,image/png,image/webp"></label><button id="save" type="button">Téléverser la photo</button><p class="muted">JPEG, PNG ou WebP, jusqu’à 5 Mo. Sur iPhone, choisis une version JPEG si la photo est au format HEIC.</p><div id="receipt" class="item" hidden><strong>Photo enregistrée en privé ✓</strong><p>Copie la référence ci-dessous et colle-la dans notre conversation ChatGPT.</p><p id="reference" class="muted"></p><button type="button" id="copy">Copier la référence</button></div></section>
 <p id="status" role="status" aria-live="polite"></p><script src="messages-config.js"></script><script type="module">
 const $=id=>document.getElementById(id),status=t=>$('status').textContent=t,cfg=window.JOURNEY_MESSAGES_CONFIG;
 const {createClient}=await import('https://esm.sh/@supabase/supabase-js@2.49.8');
-const sb=createClient(cfg.url,cfg.publishableKey,{auth:{persistSession:true,detectSessionInUrl:true}});
-const authorized='jfr.northcast@gmail.com';
-async function refresh(){const {data:{user}}=await sb.auth.getUser();const allowed=user?.email?.toLowerCase()===authorized;$('login').hidden=!!allowed;$('editor').hidden=!allowed;if(allowed){$('identity').textContent=user.email;await list()}}
-async function list(){const {data,error}=await sb.from('journey_postcards').select('id,photo_path,created_at,title,published').order('created_at',{ascending:false}).limit(50);$('drafts').replaceChildren();if(error){status(error.message);return}
-for(const d of data){const item=document.createElement('div');item.className='item';const name=document.createElement('strong');name.textContent='Photo '+new Date(d.created_at).toLocaleString('fr-CA');item.append(name);
-const state=document.createElement('div');state.className='muted';state.textContent=d.published?'Publiée':'En attente de texte';item.append(state);
-const ref=document.createElement('div');ref.className='muted';ref.textContent='Référence : '+d.id;item.append(ref);
-const btn=document.createElement('button');btn.textContent='Copier la référence';btn.onclick=async()=>{const t='Photo Journey Tracker : '+d.id;try{await navigator.clipboard.writeText(t);status('Référence copiée. Revenez dans ChatGPT et collez-la ici.')}catch{status('Copiez la référence affichée ci-dessus et envoyez-la dans ChatGPT.')}};item.append(btn);$('drafts').append(item)}}
-$('send').onclick=async()=>{const email=$('email').value.trim();if(email.toLowerCase()!==authorized){status('Ce compte ne peut pas téléverser.');return}const {error}=await sb.auth.signInWithOtp({email,options:{emailRedirectTo:location.href.split('#')[0]}});status(error?error.message:'Vérifiez votre courriel et ouvrez le lien sur cet appareil.')};
-$('save').onclick=async()=>{const {data:{user}}=await sb.auth.getUser();if(user?.email?.toLowerCase()!==authorized){status('Connexion requise.');return}const f=$('photo').files[0];if(!f){status('Choisissez une photo.');return}if(!['image/jpeg','image/png','image/webp'].includes(f.type)||f.size>5000000){status('Utilisez une image JPEG, PNG ou WebP de 5 Mo maximum.');return}
-status('Envoi de la photo…');$('save').disabled=true;try{const ext=f.type==='image/png'?'png':f.type==='image/webp'?'webp':'jpg';const path=user.id+'/'+crypto.randomUUID()+'.'+ext;
-const up=await sb.storage.from('journey-postcards').upload(path,f,{contentType:f.type,upsert:false});if(up.error)throw up.error;
-const ins=await sb.from('journey_postcards').insert({author_id:user.id,travel_date:null,title:'Photo en attente',message:'Texte à préparer dans ChatGPT',photo_path:path,photo_alt:'',published:false}).select('id').single();if(ins.error)throw ins.error;
-$('photo').value='';status('Photo enregistrée en privé ! Copiez sa référence ci-dessous et envoyez-la dans ChatGPT.');await list()
-}catch(e){status('Erreur : '+e.message)}finally{$('save').disabled=false}};
-$('logout').onclick=async()=>{await sb.auth.signOut();await refresh()};sb.auth.onAuthStateChange(()=>setTimeout(refresh,0));await refresh();
+// Isolate from previous magic-link logins: upload always uses anonymous staging policies.
+const sb=createClient(cfg.url,cfg.publishableKey,{auth:{persistSession:false,autoRefreshToken:false,detectSessionInUrl:false}});
+let reference='';
+$('copy').onclick=async()=>{const value='Photo Journey Tracker : '+reference;if(!reference)return;try{await navigator.clipboard.writeText(value);status('Référence copiée. Reviens dans ChatGPT et colle-la ici.')}catch(e){status('Sélectionne la référence affichée et copie-la manuellement.')}};
+$('save').onclick=async()=>{const file=$('photo').files[0];if(!file){status('Choisis une photo.');return}
+const ext={'image/jpeg':'jpg','image/png':'png','image/webp':'webp'}[file.type];
+if(!ext||file.size>5000000){status('Choisis un fichier JPEG, PNG ou WebP de 5 Mo maximum.');return}
+$('save').disabled=true;$('receipt').hidden=true;status('Téléversement de la photo en cours…');
+const id=crypto.randomUUID(),path='inbox/'+crypto.randomUUID()+'.'+ext;
+try{
+const uploaded=await sb.storage.from('journey-postcards').upload(path,file,{contentType:file.type,upsert:false});
+if(uploaded.error)throw uploaded.error;
+// Anonymous INSERT has no SELECT rights. Supply client-generated UUID and do not request a returned row.
+const inserted=await sb.from('journey_postcards').insert({id,author_id:null,travel_date:null,title:'Photo en attente',message:'Texte à préparer dans ChatGPT',photo_path:path,photo_alt:'',published:false});
+if(inserted.error)throw inserted.error;
+reference=id;$('reference').textContent=id;$('receipt').hidden=false;$('photo').value='';status('Téléversement réussi. La photo reste privée jusqu’à ton approbation dans ChatGPT.');
+}catch(e){status('Échec du téléversement : '+(e?.message||'Erreur inconnue')+'. Aucun brouillon public n’a été publié. Réessaie avec une autre photo au besoin.')}
+finally{$('save').disabled=false}};
 </script></body></html>
