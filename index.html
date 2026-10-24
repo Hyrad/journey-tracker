@@ -353,7 +353,7 @@ function renderJournal(){
  const latest=document.getElementById('latestJournal'),container=document.getElementById('journalEntries'),selector=document.getElementById('memoryStop'),timeline=document.getElementById('memoryTimeline'),galleryRoot=document.getElementById('memoryGallery');
  const add=(tag,value,parent,cls)=>{const el=document.createElement(tag);el.textContent=value;if(cls)el.className=cls;parent.appendChild(el);return el};
  const indexFor=e=>Number.isInteger(e.dayIndex)&&days[e.dayIndex]&&days[e.dayIndex][0]===e.date?e.dayIndex:days.findIndex(d=>d[0]===e.date);
- const photosFor=e=>Array.isArray(e.photos)?e.photos.filter(p=>p&&typeof p.src==='string'&&(/^photos\/[a-z0-9_-]+\.(jpg|jpeg|png|webp)$/i.test(p.src)||/^https:\/\/iqwlpyvrlggasynljsjz\.supabase\.co\/storage\/v1\/object\/journey-postcards\//.test(p.src))).slice(0,6):[];
+ const photosFor=e=>Array.isArray(e.photos)?e.photos.filter(p=>p&&typeof p.src==='string'&&(/^photos\/[a-z0-9_-]+\.(jpg|jpeg|png|webp)$/i.test(p.src)||/^https:\/\/iqwlpyvrlggasynljsjz\.supabase\.co\/storage\/v1\/object\/sign\/journey-postcards\//.test(p.src))).slice(0,6):[];
  const fill=(entry,parent,compact)=>{
   const wrapper=document.createElement('article');wrapper.className=compact?'journal-latest':'journal-entry';
   add('div',compact?'Latest approved postcard':'Published travel memory',wrapper,'eyebrow');
@@ -376,7 +376,7 @@ function renderJournal(){
  }
  selector.onchange=()=>show(selector.value);
  if(!entries.length)return;
- const replacement=document.createElement('div');latest.replaceWith(replacement);fill(entries[0],replacement,true);
+ latest.replaceChildren();fill(entries[0],latest,true);
  show('all');
 }
 
