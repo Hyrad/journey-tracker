@@ -1,5 +1,5 @@
-// Journey Tracker v1.7.7: public offline shell only. Private API and auth never cached.
-const CACHE='journey-tracker-v1-7-7';
+// Journey Tracker v1.7.8: public offline shell only. Private API and auth never cached.
+const CACHE='journey-tracker-v1-7-8';
 const CORE=['./','./index.html','./trip-data.js','./journal-data.js','./position-data.js','./port-schedule.js','./manifest.webmanifest','./icon.svg','./postcard-studio.html','./i18n.js','./dashboard-live.js','./departure-countdown.js','./port-notes.js','./port-comments.js','./port-piers.js','./port-time-zones.js','./theme.js','./excursion-planner.js','./quick-nav.js','./offline-status.js','./refresh-site.js'];
 const CDN=['https://unpkg.com/leaflet@1.9.4/dist/leaflet.js','https://unpkg.com/leaflet@1.9.4/dist/leaflet.css','https://esm.sh/@supabase/supabase-js@2.49.8'];
 self.addEventListener('install',event=>event.waitUntil((async()=>{const cache=await caches.open(CACHE);await cache.addAll(CORE.map(url=>new Request(url,{cache:'reload'}))); await Promise.allSettled(CDN.map(async url=>{const resp=await fetch(url);if(resp.ok)await cache.put(url,resp)}));await self.skipWaiting()})()));

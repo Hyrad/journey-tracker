@@ -2,14 +2,15 @@
 (()=>{'use strict';
 const button=document.getElementById('refreshSite'),status=document.getElementById('refreshStatus');
 if(!button||!status)return;
-const labels={fr:{button:'↻ Actualiser',loading:'Actualisation…',error:'Actualisation impossible. Vérifiez votre connexion et réessayez.'},en:{button:'↻ Refresh',loading:'Refreshing…',error:'Unable to refresh. Check your connection and try again.'}};
+const labels={fr:{button:'↻ Actualiser',loading:'Actualisation…',checking:'Recherche de la dernière version…',success:'✓ Site actualisé.',error:'Actualisation impossible. Vérifiez votre connexion et réessayez.'},en:{button:'↻ Refresh',loading:'Refreshing…',checking:'Checking for the latest version…',success:'✓ Site refreshed.',error:'Unable to refresh. Check your connection and try again.'}};
 const language=()=>{try{return localStorage.getItem('journey-tracker-language')==='en'?'en':'fr'}catch{return'fr'}};
-const translate=()=>{button.textContent=labels[language()][button.disabled?'loading':'button']};
+let statusKey='';
+const translate=()=>{const text=labels[language()];button.textContent=text[button.disabled?'loading':'button'];status.textContent=statusKey?text[statusKey]:''};
 // The unique URL bypasses an old document in Safari's HTTP cache. Keep the clean URL afterwards.
-const clean=new URL(location.href);if(clean.searchParams.has('_refresh')){clean.searchParams.delete('_refresh');history.replaceState(history.state,'',clean.href)}
+const clean=new URL(location.href);if(clean.searchParams.has('_refresh')){statusKey='success';clean.searchParams.delete('_refresh');history.replaceState(history.state,'',clean.href)}
 button.addEventListener('click',async()=>{
  if(button.disabled)return;
- button.disabled=true;status.textContent='';translate();
+ const started=Date.now();button.disabled=true;button.setAttribute('aria-busy','true');statusKey='checking';translate();
  const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),15000);
  try{
   if(!navigator.onLine)throw Error('offline');
@@ -32,9 +33,11 @@ button.addEventListener('click',async()=>{
    const registration=await navigator.serviceWorker.getRegistration();
    if(registration)await Promise.race([registration.update().catch(()=>{}),new Promise(resolve=>setTimeout(resolve,2000))]);
   }
+  // Keep acknowledgement visible even on a fast connection.
+  await new Promise(resolve=>setTimeout(resolve,Math.max(0,600-(Date.now()-started))));
   location.replace(target.href);
  }catch{
-  button.disabled=false;status.textContent=labels[language()].error;translate();
+  button.disabled=false;button.setAttribute('aria-busy','false');statusKey='error';translate();
  }finally{clearTimeout(timeout)}
 });
 document.getElementById('languageSwitch')?.addEventListener('click',()=>setTimeout(translate,0));translate();
