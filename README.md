@@ -295,15 +295,27 @@ No official schedules, modeled ship movement, map labels or all-aboard deadlines
 Validation: `node --test tests/port-time-zones.test.cjs`. Browser checks: serve this directory on port 8080 and run `node tests/port-time-zones.browser.cjs` with Playwright and Chromium/WebKit installed. No build step or package manifest exists in this static project.
 
 
-## Optional feature visibility — current trip
+## Display settings and trip lifecycle (v1.8.0)
 
-Optional features remain implemented and can be surfaced in future trips. They are hidden for this cruise, rather than removed. Visibility is configured on the root `<html>` element in `index.html`; no visitor preference or extra settings menu is required.
+Open **Réglages / Settings** beside Refresh. Preferences live in `journey-tracker-feature-preferences-v1` in localStorage, scoped to this browser. No server/account sync is implied. Changes apply immediately, survive reloads and future itinerary changes, and sync between open tabs of this origin.
 
-| Feature | Root HTML setting | Current state | Restore |
-| --- | --- | --- | --- |
-| Vessel tracking disclosure | `data-feature-vessel-tracking` | `off` | Set to `on` |
-| About the map and accuracy disclosure | `data-feature-map-accuracy` | `off` | Set to `on` |
+Two independent layers control each feature:
 
-The flags hide the complete disclosure, including its button, from the layout, keyboard navigation and accessibility tree. Existing markup, translations, external tracking links and supporting logic are retained. Change either flag independently to restore its existing collapsed section. Ship position estimates, map controls, route legend, next-destination countdown and other inline accuracy labels remain available.
+| Feature | Saved default | Automatic behavior |
+| --- | --- | --- |
+| Departure countdown | `auto` | Visible before scheduled departure; hidden at departure |
+| Days remaining (dashboard and progress) | `auto` | Visible before/during the trip; hidden on completion |
+| Next-destination countdown | `auto` | Visible during the trip while a future arrival exists |
+| Date/time preview | `false` | Persistent optional section |
+| Vessel tracking | `false` | Persistent optional section |
+| About map accuracy | `false` | Persistent optional section |
 
-The departure countdown has its existing independent `#departureWidget` `data-enabled="false"` setting. These two visibility flags do not affect it or the next-destination countdown. Bump the service-worker cache version when deploying changed flags so saved pages receive the new configuration.
+For countdowns, **Automatic** follows the schedule; **Show** or **Hide** is a persistent presentation override. Showing an elapsed departure displays the existing completed message, never a negative countdown. For optional sections, the checkbox is a persistent visibility preference. Features remain implemented while hidden.
+
+`feature-settings.js` exports normalization and state resolution for tests, and owns the bilingual settings dialog. It derives the trip phase from `JOURNEY_PORT_SCHEDULE`: first departure, final arrival/departure, and future arrivals. Phase uses real time, independently of the optional preview. There is no persisted “trip has started” toggle to get stuck when a new schedule is configured. The departure timer now also reads that schedule rather than a fixed date. Updating a future site's itinerary/schedule makes Automatic features follow those dates; it does not erase saved Show/Hide choices. This is a display-settings reset, not a new-trip authoring wizard.
+
+Effective root `data-feature-*` attributes control visibility, including layout, keyboard and accessibility visibility. They are outputs of the settings controller, rather than the saved preferences. Hiding preview invokes the existing Return to today control so a hidden simulation cannot remain active. The map, route controls, itinerary, disclosures, estimates and their translations remain implemented.
+
+**Restore default settings** restores Automatic countdown modes and hides the optional sections. It changes only this feature-preferences storage key, preserving itinerary, notes, messages, sign-in, language and theme. If storage is unavailable, changes work for the current session and the menu says they could not be saved.
+
+Validation: `node --test tests/feature-settings.test.cjs tests/port-time-zones.test.cjs`. Bump the service-worker cache and changed script versions when deploying.

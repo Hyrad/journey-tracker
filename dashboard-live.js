@@ -3,7 +3,7 @@
 'use strict';
 const get=id=>document.getElementById(id);
 const dates=window.days || (typeof days!=='undefined'?days:[]);
-const start='2026-10-24',end='2026-11-07',tz='America/New_York';
+const start=dates[0]?.[0],end=dates[dates.length-1]?.[0],tz='America/New_York';
 const translation={fr:{heading:'En direct · votre croisière',time:'Heure de Fort Lauderdale',count:'Départ dans',return:'Retour dans',progress:'Voyage accompli',next:'Prochaine escale',forecast:'Météo à l’escale',loading:'Chargement…',unavailable:'Prévision indisponible',tooEarly:'Prévisions à venir (7 jours avant l’escale)',sea:'Avant le départ',done:'Voyage terminé',days:'jours',hours:'h',mins:'min',source:'Prévisions Open-Meteo · non liées au navire',provisional:'Dates selon l’itinéraire · horaires à confirmer',sun:'Ensoleillé',cloud:'Nuageux',rain:'Pluie possible',storm:'Orages possibles',snow:'Neige possible',other:'Conditions variables'},en:{heading:'Live · your cruise',time:'Fort Lauderdale time',count:'Sailing in',return:'Return in',progress:'Voyage complete',next:'Next port',forecast:'Port forecast',loading:'Loading…',unavailable:'Forecast unavailable',tooEarly:'Forecast available 7 days before port',sea:'Before departure',done:'Voyage completed',days:'days',hours:'h',mins:'min',source:'Open-Meteo forecast · not ship observations',provisional:'Itinerary dates · port hours require confirmation',sun:'Sunny',cloud:'Cloudy',rain:'Possible rain',storm:'Possible thunderstorms',snow:'Possible snow',other:'Variable conditions'}};
 const language=()=>{try{return localStorage.getItem('journey-tracker-language')==='en'?'en':'fr'}catch(e){return'fr'}};
 let weather=null,weatherKey='',weatherError=false;
