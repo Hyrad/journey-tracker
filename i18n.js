@@ -177,8 +177,8 @@ Object.assign(exact,{"☀️ Today’s Adventure":"☀️ L’aventure du jour",
 Object.assign(exact,{'Getting ready':'En préparation','⏳ Getting ready':'⏳ En préparation','Preparing to sail':'Préparatifs du départ','Oct 27':'27 oct.','Next Scheduled Destination':'Prochaine escale prévue'});
 Object.assign(exact,{
 "Friends & family · v1.5.9":"Amis et famille · v1.5.9",
-"💬 Friends & Family Messages":"💬 Messages des proches",
-"Friends & Family Messages":"Messages des proches",
+"💬 Friends & Family Messages":"💬 Messages de la gang",
+"Friends & Family Messages":"Messages de la gang",
 "Travel journal for friends & family":"Journal de voyage pour nos proches",
 "Private conversations for invited and approved friends and family.":"Discussions privées réservées aux amis et membres de la famille invités et approuvés.",
 "Leave a message for friends and family":"Laisser un message à nos proches",
