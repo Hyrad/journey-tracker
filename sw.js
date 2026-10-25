@@ -1,12 +1,13 @@
-// Journey Tracker v1.7.5: public offline shell only. Private API and auth never cached.
-const CACHE='journey-tracker-v1-7-5';
+// Journey Tracker v1.7.6: public offline shell only. Private API and auth never cached.
+const CACHE='journey-tracker-v1-7-6';
 const CORE=['./','./index.html','./trip-data.js','./journal-data.js','./position-data.js','./port-schedule.js','./manifest.webmanifest','./icon.svg','./postcard-studio.html','./i18n.js','./dashboard-live.js','./departure-countdown.js','./port-notes.js','./port-comments.js','./port-piers.js','./port-time-zones.js','./theme.js','./excursion-planner.js','./quick-nav.js','./offline-status.js'];
 const CDN=['https://unpkg.com/leaflet@1.9.4/dist/leaflet.js','https://unpkg.com/leaflet@1.9.4/dist/leaflet.css','https://esm.sh/@supabase/supabase-js@2.49.8'];
 self.addEventListener('install',event=>event.waitUntil((async()=>{const cache=await caches.open(CACHE);await cache.addAll(CORE.map(url=>new Request(url,{cache:'reload'}))); await Promise.allSettled(CDN.map(async url=>{const resp=await fetch(url);if(resp.ok)await cache.put(url,resp)}));await self.skipWaiting()})()));
 self.addEventListener('activate',event=>event.waitUntil((async()=>{const keys=await caches.keys();const outdated=keys.filter(key=>key.startsWith('journey-tracker-')&&key!==CACHE);await Promise.all(outdated.map(key=>caches.delete(key)));await self.clients.claim();
 // Existing pages do not acquire new HTML just because a worker takes control.
 // Refresh only the public tracker on upgrade; never interrupt postcard or message forms.
-if(outdated.length){const root=new URL('./',self.location.href);const windows=await self.clients.matchAll({type:'window'});await Promise.allSettled(windows.filter(client=>{const url=new URL(client.url);return url.origin===root.origin&&(url.pathname===root.pathname||url.pathname===root.pathname+'index.html')}).map(client=>client.navigate(client.url)))}})()));
+if(outdated.length){const root=new URL('./',self.location.href);const windows=await self.clients.matchAll({type:'window'});// Start navigation without awaiting it: navigation fetches wait for activation to finish.
+windows.filter(client=>{const url=new URL(client.url);return url.origin===root.origin&&(url.pathname===root.pathname||url.pathname===root.pathname+'index.html')}).forEach(client=>{client.navigate(client.url).catch(()=>{})})}})()));
 self.addEventListener('fetch',event=>{const req=event.request,url=new URL(req.url);if(req.method!=='GET')return;
 // Never cache authentication redirects, Supabase database traffic, member messages or configuration.
 if(url.origin===self.location.origin){if(url.pathname.endsWith('/messages.html')||url.pathname.endsWith('/messages-config.js')){event.respondWith(fetch(req,{cache:'no-store'}).catch(()=>new Response('Connexion requise pour la messagerie.',{status:503,headers:{'Content-Type':'text/plain;charset=utf-8'}})));return}
