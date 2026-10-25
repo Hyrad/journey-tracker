@@ -293,3 +293,17 @@ Source checked October 22, 2026: [IANA northamerica](https://data.iana.org/time-
 No official schedules, modeled ship movement, map labels or all-aboard deadlines are changed. The exact requested Princess safety reminder appears in each language. The new blocks own their translations; the generic translation walker skips them. The service-worker cache includes the module and is versioned for update.
 
 Validation: `node --test tests/port-time-zones.test.cjs`. Browser checks: serve this directory on port 8080 and run `node tests/port-time-zones.browser.cjs` with Playwright and Chromium/WebKit installed. No build step or package manifest exists in this static project.
+
+
+## Optional feature visibility — current trip
+
+Optional features remain implemented and can be surfaced in future trips. They are hidden for this cruise, rather than removed. Visibility is configured on the root `<html>` element in `index.html`; no visitor preference or extra settings menu is required.
+
+| Feature | Root HTML setting | Current state | Restore |
+| --- | --- | --- | --- |
+| Vessel tracking disclosure | `data-feature-vessel-tracking` | `off` | Set to `on` |
+| About the map and accuracy disclosure | `data-feature-map-accuracy` | `off` | Set to `on` |
+
+The flags hide the complete disclosure, including its button, from the layout, keyboard navigation and accessibility tree. Existing markup, translations, external tracking links and supporting logic are retained. Change either flag independently to restore its existing collapsed section. Ship position estimates, map controls, route legend, next-destination countdown and other inline accuracy labels remain available.
+
+The departure countdown has its existing independent `#departureWidget` `data-enabled="false"` setting. These two visibility flags do not affect it or the next-destination countdown. Bump the service-worker cache version when deploying changed flags so saved pages receive the new configuration.
