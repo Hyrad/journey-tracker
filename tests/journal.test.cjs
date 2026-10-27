@@ -21,7 +21,7 @@ function fixture(language){
  const postcards=[{date:'2026-10-25',title:'Notre moment',title_en:'Our moment',message:'Notre récit <b>intact</b>',message_en:'Our unchanged story <b>text</b>',photos:[{src:'photos/test.jpg',alt:'La mer',alt_en:'The sea',caption:'Caption kept'},{src:'https://example.com/unapproved.jpg',alt:'Rejected'}]}];
  const before=JSON.stringify(postcards),storedBefore=JSON.stringify(storage);
  const window={JOURNEY_JOURNAL:[],JOURNEY_CLOUD_POSTCARDS:postcards};
- const context={window,document:{getElementById:id=>ids[id],createElement:tag=>new Element(tag),addEventListener:(type,fn)=>events[type]=fn},localStorage:{getItem:key=>storage[key],setItem:()=>{throw Error('Unexpected storage write')}},setTimeout:fn=>pending.push(fn),setDay:()=>{},console};
+ const context={window,document:{getElementById:id=>ids[id],createElement:tag=>new Element(tag),addEventListener:(type,fn)=>events[type]=fn},localStorage:{getItem:key=>storage[key],setItem:()=>{throw Error('Unexpected storage write')}},setTimeout:fn=>pending.push(fn),setDay:()=>{},renderSelectedDestination:()=>{},console};
  vm.createContext(context);
  vm.runInContext(read('trip-data.js'),context);
  const html=read('index.html');

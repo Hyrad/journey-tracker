@@ -1,3 +1,9 @@
+## v1.8.2 — Selected-destination status contrast
+
+- The status box beside “Where are we going?” now has paired light/dark surface, title and metadata colors, with wrapping and shrinking for narrow screens.
+- Its date, stop type, selected-destination label and schedule-only qualifier follow FR/EN, including language switches. It remains an itinerary selection, not a verified ship-location report. Map selection, trip state and saved preferences are unchanged.
+- Validation: `node --test tests/*.test.cjs` (17 passing), changed-script syntax and diff checks. Static cascade checks across six viewport widths, both themes and both languages include the status box and journal; minimum text contrast is 5.21:1. Visual browser/iPhone acceptance remains pending.
+
 ## v1.8.1 — Published memory contrast
 
 - Archive and latest-postcard cards now use paired journal surface/text tokens in light and dark modes. Scoped rules override the older broad dark-theme styles, including titles, descriptions, dates, locations, captions and publication badges.
