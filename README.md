@@ -1,3 +1,11 @@
+## v1.8.1 — Published memory contrast
+
+- Archive and latest-postcard cards now use paired journal surface/text tokens in light and dark modes. Scoped rules override the older broad dark-theme styles, including titles, descriptions, dates, locations, captions and publication badges.
+- Journal dates and labels follow FR/EN, and the language button rerenders approved bilingual captions even though the button is created after the journal. Authored text stays outside automatic translation.
+- Existing one-column mobile and two-column desktop archive layouts remain; long titles and metadata can wrap within their cards. The new stylesheet is included in the versioned offline shell.
+- No postcard, photo, itinerary, settings, stored draft or publication state is changed by this release.
+- Validation: `node --test tests/*.test.cjs` (14 passing), JavaScript syntax and diff checks. Static CSS cascade/contrast analysis covered 320/375/390/650/651/1280 px, light/dark and FR/EN; the lowest text contrast was 5.37:1. These are code-level checks; browser rendering and physical iPhone acceptance remain pending.
+
 ## v1.5.0 — Photo postcards (draft and review workflow)
 
 - Postcard Studio now accepts one photo from iPhone/iPad Photo Library or files. Images are resized to at most 1200 px and recompressed locally before saving with the postcard draft in browser localStorage.

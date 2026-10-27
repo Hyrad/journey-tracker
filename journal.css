@@ -1,0 +1,68 @@
+/* Pair journal surfaces and text in both themes. Keep these tokens local to
+   the journal; the site-wide --navy/--muted tokens change in dark mode. */
+#journal {
+  --journal-surface: #ffffff;
+  --journal-latest-surface: #edf8f5;
+  --journal-heading: #082c40;
+  --journal-body: #395d6b;
+  --journal-muted: #476a78;
+  --journal-accent: #086b73;
+  --journal-badge: #e0f2ef;
+  --journal-border: #bfd8d1;
+}
+html[data-theme="dark"] #journal {
+  --journal-surface: #163744;
+  --journal-latest-surface: #214653;
+  --journal-heading: #f3fbfc;
+  --journal-body: #d4e8eb;
+  --journal-muted: #bfd5da;
+  --journal-accent: #9de6df;
+  --journal-badge: #28515c;
+  --journal-border: #557d88;
+}
+/* The scoped important declarations override theme.js's broad important
+   heading/paragraph rules, regardless of when that script injects its CSS. */
+#journal .journal-entry,
+#journal .journal-latest {
+  background: var(--journal-surface) !important;
+  color: var(--journal-heading) !important;
+  border-color: var(--journal-border) !important;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+#journal .journal-latest {
+  background: var(--journal-latest-surface) !important;
+  border-left-color: var(--journal-accent) !important;
+}
+#journal .journal-entry h3,
+#journal .journal-latest h3,
+#journal .journal-latest strong {
+  color: var(--journal-heading) !important;
+}
+#journal .journal-entry p,
+#journal .journal-latest p {
+  color: var(--journal-body) !important;
+}
+#journal .journal-entry time,
+#journal .journal-latest time {
+  color: var(--journal-accent) !important;
+}
+#journal .journal-entry .status-muted,
+#journal .journal-latest .status-muted,
+#journal .journal-photo figcaption,
+#journal .memory-gallery figcaption,
+#journal .memory-controls label {
+  color: var(--journal-muted) !important;
+}
+#journal .journal-entry .eyebrow,
+#journal .journal-latest .eyebrow {
+  display: block;
+  width: fit-content;
+  background: var(--journal-badge) !important;
+  color: var(--journal-accent) !important;
+  padding: 4px 8px;
+  border-radius: 6px;
+  max-width: 100%;
+}
+#journal .journal-photo { min-width: 0; }
+#journal .journal-photo img { max-width: 100%; }
