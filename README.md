@@ -1,3 +1,12 @@
+## v1.8.3 — JT-COZUMEL-01: Cozumel excursion guide
+
+- Read-only FR/EN plan for Cozumel on October 29, 2026, alongside existing destination information. Four numbered steps, collapsible details, map/walking links and persistent return warning. Direct link: `#cozumel-2026-10-29`.
+- Planned/provisional only; no booking or completion. 60–75 min walking is an unverified estimate. The 17:30/5:30 PM target and user-reported 18:30/6:30 PM deadline share an unconfirmed clock reference, without timezone conversion. Official ship instructions take precedence.
+- APIQROO schedules Puerta Maya; actual berth and pedestrian route require local confirmation. Park website lists Monday–Saturday 08:00–16:00 local; reconfirm before entry and return before closing. Exact prices omitted because the park and FAQ pages disagree. Sources and review date are linked in the guide.
+- Uses destination-specific data, existing disclosure styling and scoped theme colors. Existing private excursion ideas remain independent; no database, photo, postcard, message, preference or trip-state writes.
+- Validation: 21 Node tests passed, JavaScript syntax and diff checks; Chromium responsive checks at 320/390/768/1280 frame widths with no horizontal overflow, 44 px minimum link targets, FR/EN and light/dark rendering. Text/link contrast meets WCAG AA. Physical iPhone/Safari and installed-PWA update acceptance remain unverified.
+- Existing GitHub Pages main-branch deployment preserved. Preview-only hosting metadata and QA harness are excluded from Git.
+
 ## v1.8.2 — Selected-destination status contrast
 
 - The status box beside “Where are we going?” now has paired light/dark surface, title and metadata colors, with wrapping and shrinking for narrow screens.

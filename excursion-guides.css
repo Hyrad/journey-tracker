@@ -1,0 +1,12 @@
+/* Reuse the tracker palette and disclosure control, with scoped contrast pairs. */
+.excursion-guide{--excursion-surface:#f2f9f7;--excursion-ink:#103b50;--excursion-alert:#e8f7f3;--excursion-link:#075466;background:var(--excursion-surface);color:var(--excursion-ink);font-size:15px;line-height:1.55;overflow-wrap:anywhere;min-width:0;scroll-margin-top:12px}
+html[data-theme="dark"] .excursion-guide{--excursion-surface:#193745;--excursion-ink:#e7f3f3;--excursion-alert:#244854;--excursion-link:#b9f5ee}
+.excursion-guide h4,.excursion-guide h5,.excursion-guide p,.excursion-guide small,.excursion-guide strong,.excursion-guide summary{color:var(--excursion-ink)!important}
+.excursion-guide h4{font-size:20px;margin:0 0 8px}.excursion-guide h5{font-size:16px;margin:0 0 5px}.excursion-guide p{margin:6px 0 12px;min-height:0}.excursion-guide small{font-size:13px}
+.excursion-guide .excursion-return{background:var(--excursion-alert);border-left:4px solid var(--excursion-link);padding:12px;border-radius:8px;margin:12px 0}.excursion-return strong{font-size:17px}.excursion-return p:last-child{margin-bottom:0}
+.excursion-guide ol{padding-left:24px;margin:0}.excursion-guide li{padding-left:3px;margin:0 0 16px}.excursion-guide li::marker{font-weight:700}
+.excursion-guide .disclosure{background:var(--excursion-surface)!important;border:0}.excursion-guide summary{min-height:48px;font-size:16px;padding:10px 0}
+.excursion-links{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 12px}.excursion-guide .excursion-links a{display:flex;align-items:center;min-height:44px;padding:9px 12px;border:1px solid var(--excursion-link);border-radius:8px;color:var(--excursion-link)!important;max-width:100%;font-size:14px;font-weight:600;text-decoration:underline}
+.excursion-guide a:focus-visible{outline:3px solid var(--excursion-link);outline-offset:2px}
+.place .excursion-guide p{font-size:15px}
+html[data-theme="dark"] .excursion-guide p,html[data-theme="dark"] .excursion-guide small,html[data-theme="dark"] .excursion-guide h4,html[data-theme="dark"] .excursion-guide h5,html[data-theme="dark"] .excursion-guide strong,html[data-theme="dark"] .excursion-guide summary{color:var(--excursion-ink)!important}
